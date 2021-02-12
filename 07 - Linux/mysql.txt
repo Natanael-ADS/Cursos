@@ -1,0 +1,3 @@
+
+# import from file sql to mysql
+root > mysql -uquantum -pquantum28042004 casa_carne < /home/arquivos/casa_carne/quantum.sql

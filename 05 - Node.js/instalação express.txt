@@ -1,0 +1,5 @@
+#No terminal do windows 
+#Verificar se existe vendo a versão
+> npm -v
+#Instalar o Express e usar o comando (--save) para salvar os arquivos na pasta atual do cmd.
+> npm install express --save

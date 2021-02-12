@@ -1,0 +1,6 @@
+search a text or word in file.
+command
+> cat file.txt | grep yourWordorText
+
+-i = ignore case.
+-v = invest the search 

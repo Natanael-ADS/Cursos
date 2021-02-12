@@ -1,0 +1,10 @@
+01 - man        - See document from command.
+02 - rm         - remove
+03 - mv         - move file or rename file
+04 - mkdir      - create folder
+05 - rm -r      - remove all
+06 - rmdir      - remove all if folder was empty
+07 - cd         - chooser path
+08 - clear      - clear screen
+09 - systemctl  - stop,status e start
+10 - 
