@@ -1,0 +1,6 @@
+Passo 1
+
+cmd
+> npm install nodemon -g
+
+[-g] - significa que vai ser instalado no sistema todo e não só no projeto.
