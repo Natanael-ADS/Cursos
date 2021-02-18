@@ -1,8 +1,8 @@
-CREATE PROCEDURE sp_tabelaPrecoAtacadoMobile()
+CREATE PROCEDURE sp_tabelaPrecoAtacadoMobile( IN _codInterno INTEGER )
 BEGIN
     -- USAR PRECO ATACADO
     -- DECLARAR VALORES
-    DECLARE _existeProduto, _totalProdutosAtacados, _codInterno,_codTabelaPreco INT DEFAULT 0;
+    DECLARE _existeProduto, _totalProdutosAtacados, _codTabelaPreco INT DEFAULT 0;
     DECLARE _usarPrecoAtacado,_permitirDesconto CHAR(2) DEFAULT '0';
     DECLARE _nomeTabela VARCHAR(50) DEFAULT '';
     DECLARE _precoAtacado NUMERIC(16,2);
@@ -19,6 +19,7 @@ BEGIN
     IF ( _usarPrecoAtacado LIKE '-1' ) THEN
         -- INICIANDO PRECEDIMENTO
         -- ATRIBUIR VALORES
+        
         SET _dataHora = NOW();
         SELECT COUNT(*) INTO _totalProdutosAtacados FROM produtos WHERE preco_varejo != 0.0;
         SELECT valor INTO _permitirDesconto FROM parametros_sistema WHERE campo = 'permitirdescontoprecoatacadomobile';
@@ -30,26 +31,35 @@ BEGIN
         ELSE
             UPDATE cadtabpreco SET dataversaoregistro = _dataHora, permitirdesc = _permitirDesconto WHERE permitirdesc != _permitirDesconto AND descricao = _nomeTabela; 
         END IF;
-        DELETE FROM produtostabprecos WHERE idtabpreco = _codTabelaPreco;
 
-        -- ATUALIZAR VALORES
         SELECT COUNT(*) INTO _existeProduto FROM produtostabprecos WHERE idtabpreco = _codTabelaPreco;
-        IF (( _existeProduto = 0 ) AND ( _totalProdutosAtacados > 0 )) THEN
-            OPEN _detalhesProdutos;
-            loop1 : LOOP
-                -- VERIFICAR SE ACABOU
-                IF (_totalProdutosAtacados = 0) THEN
-                    leave loop1;
-                END IF;
+        IF ( ( _codInterno = 0 ) OR ( _existeProduto = 0 ) ) THEN
+            -- ATUALIZAR TODOS OS PRODUTOS
+            DELETE FROM produtostabprecos WHERE idtabpreco = _codTabelaPreco;
 
-                -- ATRIBUINDO VALORES
-                FETCH NEXT FROM _detalhesProdutos INTO _codInterno, _precoAtacado, _dataHora;
+            -- ATUALIZAR VALORES
+            IF ( _totalProdutosAtacados > 0 ) THEN
+                OPEN _detalhesProdutos;
+                loop1 : LOOP
+                    -- VERIFICAR SE ACABOU
+                    IF (_totalProdutosAtacados = 0) THEN
+                        leave loop1;
+                    END IF;
 
-                -- DESINCREMENTANDO
-                SET _totalProdutosAtacados = _totalProdutosAtacados - 1; 
-                -- INSERINDO
-                INSERT INTO produtostabprecos VALUES( 0, _codTabelaPreco, _codInterno, 0.0, 0.0, 0.0, _precoAtacado, _dataHora);
-            END LOOP loop1;
+                    -- ATRIBUINDO VALORES
+                    FETCH NEXT FROM _detalhesProdutos INTO _codInterno, _precoAtacado, _dataHora;
+
+                    -- DESINCREMENTANDO
+                    SET _totalProdutosAtacados = _totalProdutosAtacados - 1; 
+                    -- INSERINDO
+                    INSERT INTO produtostabprecos VALUES( 0, _codTabelaPreco, _codInterno, 0.0, 0.0, 0.0, _precoAtacado, _dataHora);
+                END LOOP loop1;
+            END IF;
+        ELSE
+            -- ATUALIZAR UM PRODUTO
+            SELECT preco_varejo INTO _precoAtacado FROM produtos WHERE cod_interno = _codInterno;
+            UPDATE produtostabprecos SET precovenda = _precoAtacado, dataversaoregistro = NOW()
+                WHERE idtabpreco = _codTabelaPreco AND idproduto = _codInterno;
         END IF;
     ELSE
         DELETE FROM cadtabpreco WHERE descricao = _nomeTabela;
