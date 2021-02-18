@@ -58,8 +58,15 @@ BEGIN
         ELSE
             -- ATUALIZAR UM PRODUTO
             SELECT preco_varejo INTO _precoAtacado FROM produtos WHERE cod_interno = _codInterno;
-            UPDATE produtostabprecos SET precovenda = _precoAtacado, dataversaoregistro = NOW()
+            SELECT COUNT(*) INTO _existeProduto FROM produtostabprecos
                 WHERE idtabpreco = _codTabelaPreco AND idproduto = _codInterno;
+                
+            IF _existeProduto = 0 THEN
+                INSERT INTO produtostabprecos VALUES( 0, _codTabelaPreco, _codInterno, 0.0, 0.0, 0.0, _precoAtacado, NOW()); 
+            ELSE
+                UPDATE produtostabprecos SET precovenda = _precoAtacado, dataversaoregistro = NOW()
+                    WHERE idtabpreco = _codTabelaPreco AND idproduto = _codInterno;
+            END IF;
         END IF;
     ELSE
         DELETE FROM cadtabpreco WHERE descricao = _nomeTabela;
