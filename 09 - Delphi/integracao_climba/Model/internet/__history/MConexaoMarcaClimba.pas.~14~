@@ -1,0 +1,40 @@
+unit MConexaoMarcaClimba;
+
+interface
+uses
+  MMarcaClimba;
+type
+  TConexaoMarcaClimba = class
+  private
+    const GET_PATH = 'brands'; //listarTudo
+    const PUT_PATH = 'api/'; // Alterar
+    const POST_PATH = 'brands';   //cadastrar
+    { Private declarations }
+
+  public
+    { Public declarations }
+    function GET(const marca: TMarcaClimba):TMarcaClimba;
+    function Update(const marcas: TMarcaClimba):TMarcaClimba;
+  end;
+
+implementation
+
+uses
+  Vcl.Dialogs, MConexaoClimba, System.SysUtils;
+
+function TConexaoMarcaClimba.GET(const marca: TMarcaClimba):TMarcaClimba;
+var
+  jsonStringRetornado:string;
+begin
+
+  jsonStringRetornado := TConexaoClimba.RequisicaoClimba(GET_PATH,'GET',marca.ToJsonString,GET_PATH);
+
+  result := TMarcaClimba.JsonStringParaObjeto(jsonStringRetornado);
+end;
+
+function TConexaoMarcaClimba.Update(const marcas: TMarcaClimba): TMarcaClimba;
+begin
+  raise Exception.Create('Em implementaç~;a');
+end;
+
+end.

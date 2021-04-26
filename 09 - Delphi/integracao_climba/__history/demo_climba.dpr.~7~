@@ -21,8 +21,7 @@ uses
   MConexaoMarcaClimba in 'Model\internet\MConexaoMarcaClimba.pas',
   MConexaoDepartamentoClimba in 'Model\internet\MConexaoDepartamentoClimba.pas',
   MDepartamentoClimba in 'Model\stubs\MDepartamentoClimba.pas',
-  CMarcaClimba in 'Controller\CMarcaClimba.pas',
-  CDepartamentoClimba in 'Controller\CDepartamentoClimba.pas';
+  CMarcaClimba in 'Controller\CMarcaClimba.pas';
 
 {$R *.res}
 
@@ -33,7 +32,6 @@ begin
   Application.Run;
 
 end.
-
 
 
 

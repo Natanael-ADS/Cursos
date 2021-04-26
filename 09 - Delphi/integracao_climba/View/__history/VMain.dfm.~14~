@@ -2,7 +2,7 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Demo Climba'
-  ClientHeight = 266
+  ClientHeight = 283
   ClientWidth = 584
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -14,12 +14,12 @@ object Form1: TForm1
   Position = poDesktopCenter
   DesignSize = (
     584
-    266)
+    283)
   PixelsPerInch = 96
   TextHeight = 13
   object btnProduto: TButton
     Left = 8
-    Top = 11
+    Top = 20
     Width = 88
     Height = 25
     Caption = 'Produto'
@@ -27,7 +27,7 @@ object Form1: TForm1
   end
   object btnMarca: TButton
     Left = 8
-    Top = 42
+    Top = 51
     Width = 88
     Height = 25
     Caption = 'Marca'
@@ -36,7 +36,7 @@ object Form1: TForm1
   end
   object btndepartamento: TButton
     Left = 8
-    Top = 73
+    Top = 82
     Width = 88
     Height = 25
     Caption = 'Departamento'
@@ -45,7 +45,7 @@ object Form1: TForm1
   end
   object btnpedido: TButton
     Left = 8
-    Top = 104
+    Top = 113
     Width = 88
     Height = 25
     Caption = 'Pedido'
@@ -53,16 +53,15 @@ object Form1: TForm1
   end
   object mmResposta: TMemo
     Left = 102
-    Top = 11
+    Top = 20
     Width = 474
-    Height = 244
+    Height = 251
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 4
-    ExplicitHeight = 260
   end
   object RadioGroup1: TRadioGroup
     Left = 8
-    Top = 135
+    Top = 144
     Width = 88
     Height = 121
     Caption = 'Teste'

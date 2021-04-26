@@ -5,7 +5,7 @@ interface
 uses
     Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
     System.Classes, Vcl.Graphics,
-    Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls;
+    Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
 
 type
     TForm1 = class(TForm)
@@ -14,7 +14,6 @@ type
     btndepartamento: TButton;
     btnpedido: TButton;
     mmResposta: TMemo;
-    RadioGroup1: TRadioGroup;
     procedure btnMarcaClick(Sender: TObject);
     procedure btndepartamentoClick(Sender: TObject);
     private
@@ -29,19 +28,17 @@ var
 implementation
 
 uses
-  CMarcaClimba, CDepartamentoClimba;
+  CMarcaClimba;
 
 
 
 {$R *.dfm}
 
 procedure TForm1.btndepartamentoClick(Sender: TObject);
-var DepartamentoClimba : TCDepartamentoClimba;
 begin
-  DepartamentoClimba := TCDepartamentoClimba.Create();
+  DepartamentoClimba := TCMarcaClimba.Create();
   try
-    mmResposta.lines.Clear;
-    mmResposta.Lines.Add(DepartamentoClimba.CadastrarDepartamento('1','teste 1'));
+    mmResposta.Lines.Add(DepartamentoClimba.CadastrarMarca('1','teste 1'));
   finally
     DepartamentoClimba.Free;
   end;
@@ -52,7 +49,6 @@ var MarcaClimba: TCMarcaClimba;
 begin
   MarcaClimba := TCMarcaClimba.Create();
   try
-    mmResposta.lines.Clear;
     mmResposta.Lines.Add(MarcaClimba.CadastrarMarca('1','teste 1'));
   finally
     MarcaClimba.Free;

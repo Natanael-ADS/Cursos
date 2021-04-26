@@ -3,16 +3,6 @@ program demo_climba;
 uses
   {$IFDEF EurekaLog}
   EMemLeaks,
-  EResLeaks,
-  EDebugExports,
-  EDebugJCL,
-  EFixSafeCallException,
-  EMapWin32,
-  EAppVCL,
-  EDialogWinAPIMSClassic,
-  EDialogWinAPIEurekaLogDetailed,
-  EDialogWinAPIStepsToReproduce,
-  ExceptionLog7,
   {$ENDIF EurekaLog}
   Vcl.Forms,
   VMain in 'View\VMain.pas' {Form1},
@@ -21,8 +11,7 @@ uses
   MConexaoMarcaClimba in 'Model\internet\MConexaoMarcaClimba.pas',
   MConexaoDepartamentoClimba in 'Model\internet\MConexaoDepartamentoClimba.pas',
   MDepartamentoClimba in 'Model\stubs\MDepartamentoClimba.pas',
-  CMarcaClimba in 'Controller\CMarcaClimba.pas',
-  CDepartamentoClimba in 'Controller\CDepartamentoClimba.pas';
+  CMarcaClimba in 'Controller\CMarcaClimba.pas';
 
 {$R *.res}
 
@@ -33,8 +22,6 @@ begin
   Application.Run;
 
 end.
-
-
 
 
 

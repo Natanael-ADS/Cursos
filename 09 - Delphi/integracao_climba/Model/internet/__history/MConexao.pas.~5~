@@ -1,0 +1,17 @@
+unit MConexao;
+
+interface
+type
+  TConexao = class
+    private
+    public
+      property URL : string;
+      property TOKEN :string;
+      constructor Create();
+      destructor Destroy(); overrider;
+  end;
+  var
+    ConexaoClimba : TConexaoClimba;
+implementation
+
+end.

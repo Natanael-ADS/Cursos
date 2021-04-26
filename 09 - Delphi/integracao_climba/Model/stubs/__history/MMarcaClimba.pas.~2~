@@ -1,0 +1,14 @@
+unit MMarcaClimba;
+
+interface
+type
+  TMarcaClimba = class
+    private
+
+    public
+      constructor Create();
+      destructor Detroy();
+  end;
+implementation
+
+end.

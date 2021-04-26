@@ -1,0 +1,13 @@
+unit MConexao;
+
+interface
+type
+  TConexao = class
+    private
+    public
+      property URL : string;
+      property TOKEN :string;
+  end;
+implementation
+
+end.

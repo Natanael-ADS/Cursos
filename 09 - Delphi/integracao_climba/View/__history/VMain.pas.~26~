@@ -40,7 +40,6 @@ var DepartamentoClimba : TCDepartamentoClimba;
 begin
   DepartamentoClimba := TCDepartamentoClimba.Create();
   try
-    mmResposta.lines.Clear;
     mmResposta.Lines.Add(DepartamentoClimba.CadastrarDepartamento('1','teste 1'));
   finally
     DepartamentoClimba.Free;
@@ -52,7 +51,6 @@ var MarcaClimba: TCMarcaClimba;
 begin
   MarcaClimba := TCMarcaClimba.Create();
   try
-    mmResposta.lines.Clear;
     mmResposta.Lines.Add(MarcaClimba.CadastrarMarca('1','teste 1'));
   finally
     MarcaClimba.Free;

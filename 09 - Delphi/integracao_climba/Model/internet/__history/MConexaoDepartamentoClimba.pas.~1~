@@ -1,0 +1,36 @@
+unit MConexaoDepartamentoClimba;
+
+interface
+uses
+  MMarcaClimba;
+type
+  TConexaoDepartamentoClimba = class
+    private
+    public
+      { Public declarations }
+      function POST(const departamento: TDepartamentoClimba):TDepartamentoClimba;
+      function GET(const idDepartamento: string):TDepartamentoClimba;
+  end;
+
+implementation
+
+uses
+  Vcl.Dialogs, MConexaoClimba, System.SysUtils;
+
+function TConexaoDepartamentoClimba.POST(const departamento: TDepartamentoClimba):TDepartamentoClimba;
+var
+  jsonStringRetornado:string;
+begin
+  jsonStringRetornado := TConexaoClimba.RequisicaoClimba('brands','POST',departamento.ToJsonString,'brands');
+  result := TDepartamentoClimba.JsonStringParaObjeto(jsonStringRetornado);
+end;
+
+function TConexaoDepartamentoClimba.GET(const idDepartamento: string): TDepartamentoClimba;
+var
+  jsonStringRetornado:string;
+begin
+  jsonStringRetornado := TConexaoClimba.RequisicaoClimba('/brands/'+idDepartamento,'POST',EmptyStr,'/brands/'+idDepartamento);
+  result := TDepartamentoClimba.JsonStringParaObjeto(jsonStringRetornado);
+end;
+
+end.

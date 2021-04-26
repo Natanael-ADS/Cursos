@@ -1,0 +1,38 @@
+unit CDepartamentoClimba;
+
+interface
+uses
+  MDepartamentoClimba, MConexaoDepartamentoClimba;
+
+
+  type
+  TCDepartamento = class
+  private
+
+  public
+    DepartamentoClimba : TDepartamentoClimba;
+    ConexaoDepartamentoClimba : TConexaoDepartamentoClimba;
+    constructor create();
+    destructor destroy();
+
+  end;
+
+implementation
+
+
+
+{ TCDepartamento }
+
+constructor TCDepartamento.create;
+begin
+  DepartamentoClimba := TDepartamentoClimba.Create();
+  ConexaoDepartamentoClimba := TConexaoDepartamentoClimba.Create();
+end;
+
+destructor TCDepartamento.destroy;
+begin
+  DepartamentoClimba.Free;
+  ConexaoDepartamentoClimba.Free;
+end;
+
+end.

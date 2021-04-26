@@ -5,9 +5,24 @@
     <Transaction>2020/11/11 11:11:42.000.764,=C:\Users\natan\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
     <Transaction>2020/11/11 13:01:05.000.284,=C:\Users\natan\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
     <Transaction>2021/03/04 15:25:46.000.504,=C:\Users\natan\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2021/04/26 12:39:58.197,=C:\Users\natan\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2021/04/26 12:41:38.939,C:\Users\natan\OneDrive\Documentos\integracao_climba\View\VMain.dfm=C:\Users\natan\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
-    <Transaction>2021/04/26 12:41:38.939,C:\Users\natan\OneDrive\Documentos\integracao_climba\View\VMain.pas=C:\Users\natan\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2021/04/26 12:42:36.049,C:\Users\natan\OneDrive\Documentos\integracao_climba\demo_climba.dproj=C:\Users\natan\OneDrive\Documentos\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2021/04/26 12:39:58.000.197,=C:\Users\natan\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021/04/26 12:41:38.000.939,C:\Users\natan\OneDrive\Documentos\integracao_climba\View\VMain.dfm=C:\Users\natan\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2021/04/26 12:41:38.000.939,C:\Users\natan\OneDrive\Documentos\integracao_climba\View\VMain.pas=C:\Users\natan\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021/04/26 12:42:36.000.049,C:\Users\natan\OneDrive\Documentos\integracao_climba\demo_climba.dproj=C:\Users\natan\OneDrive\Documentos\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2021/04/26 15:29:56.000.979,=C:\Users\natan\OneDrive\Documentos\Cursos\09 - Delphi\integracao_climba\Unit1.pas</Transaction>
+    <Transaction>2021/04/26 15:30:45.000.748,C:\Users\natan\OneDrive\Documentos\Cursos\09 - Delphi\integracao_climba\Unit1.pas=C:\Users\natan\OneDrive\Documentos\Cursos\09 - Delphi\integracao_climba\Model\internet\MConexao.pas</Transaction>
+    <Transaction>2021/04/26 15:35:15.000.092,C:\Users\natan\OneDrive\Documentos\Cursos\09 - Delphi\integracao_climba\Model\internet\MConexao.pas=C:\Users\natan\OneDrive\Documentos\Cursos\09 - Delphi\integracao_climba\Model\internet\MConexaoClimba.pas</Transaction>
+    <Transaction>2021/04/26 15:56:05.000.081,=C:\Users\natan\OneDrive\Documentos\Cursos\09 - Delphi\integracao_climba\Unit1.pas</Transaction>
+    <Transaction>2021/04/26 15:56:51.000.670,C:\Users\natan\OneDrive\Documentos\Cursos\09 - Delphi\integracao_climba\Unit1.pas=C:\Users\natan\OneDrive\Documentos\Cursos\09 - Delphi\integracao_climba\Model\stubs\MMarcaClimba.pas</Transaction>
+    <Transaction>2021/04/26 16:17:37.000.576,=C:\Users\natan\OneDrive\Documentos\Cursos\09 - Delphi\integracao_climba\Unit1.pas</Transaction>
+    <Transaction>2021/04/26 16:18:23.000.043,C:\Users\natan\OneDrive\Documentos\Cursos\09 - Delphi\integracao_climba\Unit1.pas=C:\Users\natan\OneDrive\Documentos\Cursos\09 - Delphi\integracao_climba\Model\internet\MConexaoMarcaClimba.pas</Transaction>
+    <Transaction>2021/04/26 16:52:48.950,=C:\Users\natan\OneDrive\Documentos\Cursos\09 - Delphi\integracao_climba\Unit1.pas</Transaction>
+    <Transaction>2021/04/26 16:54:23.388,C:\Users\natan\OneDrive\Documentos\Cursos\09 - Delphi\integracao_climba\Model\internet\MConexaoDepartamentoClimba.pas=C:\Users\natan\OneDrive\Documentos\Cursos\09 - Delphi\integracao_climba\Unit1.pas</Transaction>
+    <Transaction>2021/04/26 16:54:28.586,=C:\Users\natan\OneDrive\Documentos\Cursos\09 - Delphi\integracao_climba\Unit1.pas</Transaction>
+    <Transaction>2021/04/26 16:56:20.643,C:\Users\natan\OneDrive\Documentos\Cursos\09 - Delphi\integracao_climba\Model\stubs\MDepartamentoClimba.pas=C:\Users\natan\OneDrive\Documentos\Cursos\09 - Delphi\integracao_climba\Unit1.pas</Transaction>
+    <Transaction>2021/04/26 17:06:06.939,=C:\Users\natan\OneDrive\Documentos\Cursos\09 - Delphi\integracao_climba\Unit1.pas</Transaction>
+    <Transaction>2021/04/26 17:06:26.488,C:\Users\natan\OneDrive\Documentos\Cursos\09 - Delphi\integracao_climba\Controller\CMarcaClimba.pas=C:\Users\natan\OneDrive\Documentos\Cursos\09 - Delphi\integracao_climba\Unit1.pas</Transaction>
+    <Transaction>2021/04/26 17:25:02.425,=C:\Users\natan\OneDrive\Documentos\Cursos\09 - Delphi\integracao_climba\Unit1.pas</Transaction>
+    <Transaction>2021/04/26 17:25:13.780,C:\Users\natan\OneDrive\Documentos\Cursos\09 - Delphi\integracao_climba\Controller\CDepartamentoClimba.pas=C:\Users\natan\OneDrive\Documentos\Cursos\09 - Delphi\integracao_climba\Unit1.pas</Transaction>
   </Transactions>
 </BorlandProject>
