@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2020/11/09 18:25:16.000.253,=C:\Users\natan\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2020/11/11 11:11:42.000.764,=C:\Users\natan\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2020/11/11 13:01:05.000.284,=C:\Users\natan\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021/03/04 15:25:46.000.504,=C:\Users\natan\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021/04/26 12:39:58.197,=C:\Users\natan\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021/04/26 12:41:38.939,C:\Users\natan\OneDrive\Documentos\integracao_climba\View\VMain.dfm=C:\Users\natan\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2021/04/26 12:41:38.939,C:\Users\natan\OneDrive\Documentos\integracao_climba\View\VMain.pas=C:\Users\natan\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021/04/26 12:42:36.049,C:\Users\natan\OneDrive\Documentos\integracao_climba\demo_climba.dproj=C:\Users\natan\OneDrive\Documentos\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+  </Transactions>
+</BorlandProject>
