@@ -1,0 +1,74 @@
+unit CProdutoClimba;
+
+interface
+uses
+  MProdutoClimba, MConexaoProdutoClimba, System.Generics.Collections;
+
+  type
+  TCProdutoClimba = class
+  private
+
+  public
+    ProdutoClimba: TProdutoClimba;
+    ConexaoProdutoClimba: TConexaoProdutoClimba;
+    function CarregaProduto(codigo_interno: string): TCProdutoClimba;
+    function SincronizarCadastro():string;
+    function CategoriaProduto():TArray<String>;
+    function PropriedadesDoProduto(): TProductVariants;
+    constructor create();
+    destructor destroy();
+
+  end;
+
+implementation
+uses
+  CPrecoClimba;
+{ TCProdutoClimba }
+
+function TCProdutoClimba.CarregaProduto(codigo_interno: string): TCProdutoClimba;
+begin
+  try
+    ProdutoClimba.id := codigo_interno;
+    ProdutoClimba.name := ' Teste 1';
+    ProdutoClimba.BrandId:= 'idmarca';
+    ProdutoClimba.Categories := ['idcategoria'];
+    ProdutoClimba.Description:= ' Teste teste teste';
+    ProdutoClimba.ProductVariants.Add(PropriedadesDoProduto());
+    ProdutoClimba.Status:= '1';
+    Result := Self;
+  except
+    raise;
+  end;
+
+end;
+
+constructor TCProdutoClimba.create;
+begin
+  ProdutoClimba := TProdutoClimba.Create();
+  ConexaoProdutoClimba := TConexaoProdutoClimba.Create();
+end;
+
+destructor TCProdutoClimba.destroy;
+begin
+  ProdutoClimba.Free;
+  ConexaoProdutoClimba.Free;
+end;
+
+function TCProdutoClimba.PropriedadesDoProduto(): TProductVariants;
+var
+  Propriedade : TProductVariants;
+begin
+  Propriedade := TProductVariants.Create;
+  Result := nil;
+end;
+
+function TCProdutoClimba.SincronizarCadastro: string;
+begin
+  try
+    result := ConexaoProdutoClimba.POST(ProdutoClimba).ToJsonString;
+  except
+    Result := ConexaoProdutoClimba.ResultaErrado;
+  end;
+end;
+
+end.

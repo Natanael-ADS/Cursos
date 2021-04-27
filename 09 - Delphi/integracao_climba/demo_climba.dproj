@@ -84,7 +84,7 @@
         <DCC_RemoteDebug>false</DCC_RemoteDebug>
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
-        <DCC_ExeOutput>C:\Users\natan\OneDrive\Documentos\integracao_climba\</DCC_ExeOutput>
+        <DCC_ExeOutput>C:\Users\natan\OneDrive\Documentos\Cursos\09 - Delphi\integracao_climba\</DCC_ExeOutput>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
     </PropertyGroup>
@@ -112,6 +112,13 @@
         <DCCReference Include="Model\stubs\MDepartamentoClimba.pas"/>
         <DCCReference Include="Controller\CMarcaClimba.pas"/>
         <DCCReference Include="Controller\CDepartamentoClimba.pas"/>
+        <DCCReference Include="Model\stubs\MPrecoClimba.pas"/>
+        <DCCReference Include="Model\internet\MConexaoPrecoClimba.pas"/>
+        <DCCReference Include="Controller\CPrecoClimba.pas"/>
+        <DCCReference Include="Model\stubs\MProdutoClimba.pas"/>
+        <DCCReference Include="Model\internet\MConexaoProdutoClimba.pas"/>
+        <DCCReference Include="Controller\CProdutoClimba.pas"/>
+        <DCCReference Include="Model\MCodeStatus.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -139,7 +146,7 @@
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
-                <DeployFile LocalName="..\..\..\integracao_climba\demo_climba.exe" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="demo_climba.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>demo_climba.exe</RemoteName>
                         <Overwrite>true</Overwrite>

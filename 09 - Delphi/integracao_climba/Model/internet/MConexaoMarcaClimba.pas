@@ -23,7 +23,7 @@ var
   jsonStringRetornado:string;
 begin
   try
-    jsonStringRetornado := TConexaoClimba.RequisicaoClimba('brands','POST',marca.ToJsonString,'brands');
+    jsonStringRetornado := TConexaoClimba.RequisicaoClimba('POST',marca.ToJsonString,'brands');
     result := TMarcaClimba.JsonStringParaObjeto(jsonStringRetornado);
   except
     ResultaErrado := jsonStringRetornado;
@@ -34,7 +34,7 @@ function TConexaoMarcaClimba.GET(const idMarca: string): TMarcaClimba;
 var
   jsonStringRetornado:string;
 begin
-  jsonStringRetornado := TConexaoClimba.RequisicaoClimba('/brands/'+idMarca,'POST',EmptyStr,'/brands/'+idMarca);
+  jsonStringRetornado := TConexaoClimba.RequisicaoClimba('POST',EmptyStr,'/brands/'+idMarca);
   result := TMarcaClimba.JsonStringParaObjeto(jsonStringRetornado);
 end;
 

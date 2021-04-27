@@ -2,7 +2,7 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Demo Climba'
-  ClientHeight = 266
+  ClientHeight = 334
   ClientWidth = 584
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -12,9 +12,11 @@ object Form1: TForm1
   Font.Style = []
   OldCreateOrder = False
   Position = poDesktopCenter
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
   DesignSize = (
     584
-    266)
+    334)
   PixelsPerInch = 96
   TextHeight = 13
   object btnProduto: TButton
@@ -24,6 +26,7 @@ object Form1: TForm1
     Height = 25
     Caption = 'Produto'
     TabOrder = 0
+    OnClick = btnProdutoClick
   end
   object btnMarca: TButton
     Left = 8
@@ -55,22 +58,31 @@ object Form1: TForm1
     Left = 102
     Top = 11
     Width = 474
-    Height = 244
+    Height = 312
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 4
-    ExplicitHeight = 260
   end
-  object RadioGroup1: TRadioGroup
+  object rgTipo: TRadioGroup
     Left = 8
-    Top = 135
+    Top = 163
     Width = 88
     Height = 121
-    Caption = 'Teste'
+    Caption = 'METHOD'
+    ItemIndex = 0
     Items.Strings = (
       'GET'
       'GET ALL'
       'PUT'
       'POST')
     TabOrder = 5
+  end
+  object btnPreco: TButton
+    Left = 8
+    Top = 132
+    Width = 88
+    Height = 25
+    Caption = 'Pre'#231'o'
+    TabOrder = 6
+    OnClick = btnPrecoClick
   end
 end

@@ -3,7 +3,7 @@ unit MConexaoClimba;
 interface
 
 uses
-  Rest.Client;
+  Rest.Client,MUtils;
 
 type
   TConexaoClimba = class
@@ -14,11 +14,7 @@ type
   class procedure CarregarConfiguracoes();
 
   public
-    class function RequisicaoClimba(const ANomeRecurso:string;
-                                    const ATipoRequisicao:string;
-                                    const StringJSON:string;
-                                    const URL: string
-                                    ): string;
+    class function RequisicaoClimba(const ATipoRequisicao, StringJSON, URL: string): string;
   end;
 
 implementation
@@ -31,15 +27,12 @@ uses
 class procedure TConexaoClimba.CarregarConfiguracoes;
 begin
  // ler de algum local os dados do cliente
-   HOST_SERVER := 'http://demo1.climbacommerce.com.br/api/v1/';
-   API_TOKEN := 'a80843b39eb8d896c219b7b42b4ddca53629d7558f9a593af782b4879a1d'+
-              '8ab9fd79f7351f61a41c87a228dc505ee33664901751e630c3041e9a8f8f8e'+
-              '7ce634d20c21fab838603f750b5d2eb3cff34f4cd68607cd60a326c17836cbf'+
-              '523254be67a63d501a3cfc5241921b09f49b090f89c227192a28efd775da52efe55dbb9';
+   HOST_SERVER := 'https://staging-quantumsistemas.api.climbaapp.com.br/api/v1/';
+   API_TOKEN := 'ZjJjZmJiODE3NjMxODA4MzBmOWNmM2I0N2UwZTA3OTE6ZDNhOGExMmRkNzQ5NjU'+
+      '3ZDhlMTBiMmJmOGY0ZGE4MjI=';
 end;
 
-class function TConexaoClimba.RequisicaoClimba(const ANomeRecurso:string; const ATipoRequisicao:string;
-                                  const StringJSON:string;const URL: string): string;
+class function TConexaoClimba.RequisicaoClimba(const ATipoRequisicao,StringJSON,URL: string): string;
 var
   RESTRequest: TRESTRequest;
   RestClient: TRESTClient;
@@ -70,8 +63,6 @@ begin
     else if ATipoRequisicao = 'DELETE' then
       RESTRequest.Method := TRESTRequestMethod.rmDELETE;
 
-    RESTRequest.Resource := ANomeRecurso;
-
     RESTRequest.ClearBody();
 
     RESTRequest.AddBody(StringJSON, ContentTypeFromString('application/json'));
@@ -83,23 +74,14 @@ begin
       begin
         raise Exception.Create
           (PChar('RequisicaoWs - Ocorreu um erro ao executar ' +
-          'a requisição ao recurso "' + ANomeRecurso + '". Erro: ' +
+          'a requisição ao recurso. Erro: ' +
           E.Message));
       end;
     end;
 
     result := RESTResponse.Content;
+    TUtils.MsgCodeStatusHTTP(RESTResponse.StatusCode);
 
-   { if RESTResponse.StatusCode = 201 then
-    begin
-      result := RESTResponse.Content;
-    end
-    else
-    begin
-      result := RESTResponse.Content;
-    end;}
-
-    //Retorno := RESTResponse.StatusCode;
   finally
     if Assigned(RestClient) then
       FreeAndNil(RestClient);

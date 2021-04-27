@@ -1,0 +1,71 @@
+unit MUtil;
+
+interface
+
+uses
+  UControllerMessages,REST.JSON, System.JSON , System.Generics.Collections,System.TypInfo;
+type
+  TCodeStatus = class
+    private
+    public
+      class procedure MensagemStatus(codigo:integer);
+  end;
+  TConverteJSON = class
+    private
+    public
+      class function JsonStringParaObjeto(AjsonString: string; obj: TObject): TObject;
+      class function JsonStringParaObjetoList(AjsonString: string; obj:TObject):  TObjectList<TObject>;
+      class function ToJsonString(obj: TObject): string;
+  end;
+
+implementation
+
+{ TCodeStatus }
+
+class procedure TCodeStatus.MensagemStatus(codigo:integer);
+begin
+  case codigo of
+    201: TControllerMessages.CallSuccessMessage('201 - Indica que o processamento foi realizado corretamente e o retorno será conforme expectativa',false);
+    400: TControllerMessages.CallErrorMessage('400 - Requisição mal formada, 1 ou mais parâmetros estão ausentes',false);
+    401: TControllerMessages.CallErrorMessage('401 - Requisição requer autenticação',false);
+    403: TControllerMessages.CallErrorMessage('403 - Requisição negada',false);
+    404: TControllerMessages.CallErrorMessage('404 - Recurso não encontrado',false);
+    405: TControllerMessages.CallErrorMessage('405 - Método não permitido',false);
+    406: TControllerMessages.CallErrorMessage('406 - Parametros não aceitados',false);
+    409: TControllerMessages.CallErrorMessage('409 - Um atributo já está cadastrado com o mesmo código',false);
+    415: TControllerMessages.CallErrorMessage('415 - Corpo da requisição inválida',false);
+    429: TControllerMessages.CallErrorMessage('429 - Limite de requisições atingido',false);
+  end;
+end;
+
+{ TConverteJSON }
+
+class function TConverteJSON.JsonStringParaObjeto(AjsonString: string; obj: TObject): TObject;
+var
+  JSonValue : TJSonValue;
+begin
+  JsonValue := TJSonObject.ParseJSONValue(AjsonString);
+  Result := TJson.JsonToObject<obj>(AjsonString);
+end;
+
+class function TConverteJSON.JsonStringParaObjetoList(AjsonString: string; obj: TObject): TObjectList<TObject>;
+var
+  listaJson : TJSONArray;
+  JSonValue : TJSonValue;
+  ObjectList: TObjectList<obj>;
+begin
+  listaJson := TJSonObject.ParseJSONValue(AjsonString) as TJSONArray;
+  ObjectList := TObjectList<T>.Create;
+  for JSonValue in listaJson do
+  begin
+    ObjectList.AddRange(TJson.JsonToObject<T>(AjsonString));
+  end;
+  Result := ObjectList;
+end;
+
+class function TConverteJSON.ToJsonString<T>(T: TObject): string;
+begin
+   result := TJson.ObjectToJsonString(T);
+end;
+
+end.

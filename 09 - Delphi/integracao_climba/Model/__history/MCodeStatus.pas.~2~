@@ -1,0 +1,20 @@
+unit MCodeStatus;
+
+interface
+type
+  TCodeStatus = class
+    private
+    public
+      class procedure MensagemStatus(codigo:integer);
+  end;
+
+implementation
+
+{ TCodeStatus }
+
+class procedure TCodeStatus.MensagemStatus(codigo:integer);
+begin
+
+end;
+
+end.

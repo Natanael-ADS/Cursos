@@ -25,8 +25,6 @@ type
     property breadCrumb: string read FbreadCrumb write SetbreadCrumb;
     constructor Create();
     destructor Detroy();
-    class function JsonStringParaObjeto(AjsonString: string): TDepartamentoClimba;
-    function ToJsonString: string;
   end;
 implementation
 
@@ -72,19 +70,6 @@ end;
 procedure TDepartamentoClimba.SetparentId(const Value: string);
 begin
   FparentId := Value;
-end;
-
-class function TDepartamentoClimba.JsonStringParaObjeto(AjsonString: string): TDepartamentoClimba;
-  var
-  JSonValue : TJSonValue;
-begin
-  JsonValue := TJSonObject.ParseJSONValue(AjsonString);
-  Result := TJson.JsonToObject<TDepartamentoClimba>(AjsonString);
-end;
-
-function TDepartamentoClimba.ToJsonString: string;
-begin
-  result := TJson.ObjectToJsonString(Self);
 end;
 
 end.

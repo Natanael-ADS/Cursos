@@ -1,0 +1,35 @@
+unit MCodeStatus;
+
+interface
+
+uses
+  UControllerMessages;
+type
+  Code = (sc201,sc400,sc401,sc403,sc404,sc405,sc406,sc409,sc415,sc429);
+  TCodeStatus = class
+    private
+    public
+      class procedure MensagemStatus(codigo:integer);
+  end;
+
+implementation
+
+{ TCodeStatus }
+
+class procedure TCodeStatus.MensagemStatus(codigo:integer);
+begin
+  case Code(codigo) of
+    sc201: TControllerMessages.CallSuccessMessage('Indica que o processamento foi realizado corretamente e o retorno será conforme expectativa',false);
+    sc400: TControllerMessages.CallSuccessMessage('Requisição mal formada, 1 ou mais parâmetros estão ausentes',false);
+    sc401: TControllerMessages.CallSuccessMessage('Requisição requer autenticação',false);
+    sc403: TControllerMessages.CallSuccessMessage('Requisição negada',false);
+    sc404: TControllerMessages.CallSuccessMessage('Recurso não encontrado',false);
+    sc405: TControllerMessages.CallSuccessMessage('Método não permitido',false);
+    sc406: TControllerMessages.CallSuccessMessage('Parametros não aceitados',false);
+    sc409: TControllerMessages.CallSuccessMessage('Um atributo já está cadastrado com o mesmo código',false);
+    sc415: TControllerMessages.CallSuccessMessage('Corpo da requisição inválida',false);
+    sc429: TControllerMessages.CallSuccessMessage('Limite de requisições atingido',false);
+  end;
+end;
+
+end.

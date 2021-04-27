@@ -2,13 +2,12 @@ unit CDepartamentoClimba;
 
 interface
 uses
-  MDepartamentoClimba, MConexaoDepartamentoClimba;
+  MDepartamentoClimba, MConexaoDepartamentoClimba,MUtils;
 
 
   type
   TCDepartamentoClimba = class
   private
-
   public
     DepartamentoClimba : TDepartamentoClimba;
     ConexaoDepartamentoClimba : TConexaoDepartamentoClimba;
@@ -29,7 +28,8 @@ begin
   try
     DepartamentoClimba.id     := id;
     DepartamentoClimba.name   := nome;
-    result := ConexaoDepartamentoClimba.POST(DepartamentoClimba).ToJsonString;
+    DepartamentoClimba := ConexaoDepartamentoClimba.POST(DepartamentoClimba);
+    result := TUtils.ToJsonString(DepartamentoClimba);
   except
     Result := ConexaoDepartamentoClimba.ResultaErrado;
   end;

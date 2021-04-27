@@ -1,0 +1,21 @@
+unit MCodeStatus;
+
+interface
+type
+  Code = (sc201,sc400,sc401,sc403,sc404,sc405,sc406,sc409,sc415,sc429);
+  TCodeStatus = class
+    private
+    public
+      class procedure MensagemStatus(codigo:integer);
+  end;
+
+implementation
+
+{ TCodeStatus }
+
+class procedure TCodeStatus.MensagemStatus(codigo:integer);
+begin
+
+end;
+
+end.

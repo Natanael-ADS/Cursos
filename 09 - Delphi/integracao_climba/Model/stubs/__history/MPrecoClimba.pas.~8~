@@ -1,0 +1,61 @@
+unit MPrecoClimba;
+
+interface
+
+type
+  TPrecoClimba = class
+    private
+      Fname: string;
+      Fid: string;
+      procedure Setid(const Value: string);
+      procedure Setname(const Value: string);
+    public
+      property id: string read Fid write Setid;
+      property name: string read Fname write Setname;
+      constructor Create();
+      destructor Destroy(); override;
+      class function JsonStringParaObjeto(AjsonString: string): TPrecoClimba;
+      function ToJsonString: string;
+  end;
+
+implementation
+
+{ TPrecoClimba }
+uses
+  REST.JSON, System.JSON;
+
+constructor TPrecoClimba.Create;
+begin
+
+end;
+
+destructor TPrecoClimba.Destroy;
+begin
+
+  inherited;
+end;
+
+procedure TPrecoClimba.Setid(const Value: string);
+begin
+  Fid := Value;
+end;
+
+procedure TPrecoClimba.Setname(const Value: string);
+begin
+  Fname := Value;
+end;
+
+class function TPrecoClimba.JsonStringParaObjeto(AjsonString: string): TPrecoClimba;
+  var
+  JSonValue : TJSonValue;
+begin
+  JsonValue := TJSonObject.ParseJSONValue(AjsonString);
+  Result := TJson.JsonToObject<TPrecoClimba>(AjsonString);
+end;
+
+function TPrecoClimba.ToJsonString: string;
+begin
+  result := TJson.ObjectToJsonString(Self);
+end;
+
+end.
