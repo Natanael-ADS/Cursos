@@ -7,36 +7,59 @@ uses
 type
   TConexaoProdutoClimba = class
     private
+      jsonStringRetornado:string;
     public
       { Public declarations }
-      ResultaErrado : string;
+      ResultadoErrado : string;
       function POST(const produto: TProdutoClimba):TProdutoClimba;
       function GET(const idpreco: string):TProdutoClimba;
+      function GET_ALL(): TListaProdutoClimba;
+      function PUT(const produto: TProdutoClimba):TProdutoClimba;
   end;
 
 implementation
 
 uses
-  Vcl.Dialogs, MConexaoClimba, System.SysUtils;
+  Vcl.Dialogs, MConexaoClimba, System.SysUtils, MUtils;
 
-function TConexaoProdutoClimba.POST(const produto: TProdutoClimba):TProdutoClimba;
-var
-  jsonStringRetornado:string;
+function TConexaoProdutoClimba.GET_ALL: TListaProdutoClimba;
 begin
   try
-    jsonStringRetornado := TConexaoClimba.RequisicaoClimba('POST',produto.ToJsonString,'products');
-    result := TProdutoClimba.JsonStringParaObjeto(jsonStringRetornado);
+    jsonStringRetornado := TConexaoClimba.RequisicaoClimba('GET',EmptyStr,'products');
+    result := TUtils.JsonStringParaObjeto(jsonStringRetornado) as TListaProdutoClimba;
   except
-    ResultaErrado := jsonStringRetornado;
+    ResultadoErrado := jsonStringRetornado;
+  end;
+end;
+
+function TConexaoProdutoClimba.POST(const produto: TProdutoClimba):TProdutoClimba;
+begin
+  try
+    jsonStringRetornado := TConexaoClimba.RequisicaoClimba('POST',TUtils.ToJsonString(produto),'products');
+    result := TUtils.JsonStringParaObjeto(jsonStringRetornado) as TProdutoClimba;
+  except
+    ResultadoErrado := jsonStringRetornado;
   end;
 end;
 
 function TConexaoProdutoClimba.GET(const idpreco: string): TProdutoClimba;
-var
-  jsonStringRetornado:string;
 begin
-  jsonStringRetornado := TConexaoClimba.RequisicaoClimba('POST',EmptyStr,'/products/'+idpreco);
-  result := TProdutoClimba.JsonStringParaObjeto(jsonStringRetornado);
+  try
+    jsonStringRetornado := TConexaoClimba.RequisicaoClimba('POST',EmptyStr,'/products/'+idpreco);
+    result := TUtils.JsonStringParaObjeto(jsonStringRetornado) as TProdutoClimba;
+  except
+    ResultadoErrado := jsonStringRetornado;
+  end;
+end;
+
+function TConexaoProdutoClimba.PUT(const produto: TProdutoClimba):TProdutoClimba;
+begin
+  try
+    jsonStringRetornado := TConexaoClimba.RequisicaoClimba('PUT',TUtils.ToJsonString(produto),'/products/'+produto.Id);
+    result := TUtils.JsonStringParaObjeto(jsonStringRetornado) as TProdutoClimba;
+  except
+    ResultadoErrado := jsonStringRetornado;
+  end;
 end;
 
 end.

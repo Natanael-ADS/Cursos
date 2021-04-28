@@ -29,7 +29,8 @@ uses
   MProdutoClimba in 'Model\stubs\MProdutoClimba.pas',
   MConexaoProdutoClimba in 'Model\internet\MConexaoProdutoClimba.pas',
   CProdutoClimba in 'Controller\CProdutoClimba.pas',
-  MCodeStatus in 'Model\MCodeStatus.pas';
+  MUtils in 'Model\MUtils.pas',
+  CInterfaceClimba in 'Controller\CInterfaceClimba.pas';
 
 {$R *.res}
 
@@ -40,6 +41,10 @@ begin
   Application.Run;
 
 end.
+
+
+
+
 
 
 

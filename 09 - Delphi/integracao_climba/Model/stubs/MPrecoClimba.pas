@@ -2,6 +2,9 @@ unit MPrecoClimba;
 
 interface
 
+uses
+  System.Generics.Collections;
+
 type
   TPrecoClimba = class
     private
@@ -17,8 +20,15 @@ type
       property price: Integer read Fprice write Setprice; //Exemplo R$ 19,98 => 1998
       constructor Create(const id,name:string; const price:integer);
       destructor Destroy(); override;
-      class function JsonStringParaObjeto(AjsonString: string): TPrecoClimba;
-      function ToJsonString: string;
+  end;
+  TPrecoClimbaLista = class
+    private
+    Flista: TObjectList<TPrecoClimba>;
+    procedure Setlista(const Value: TObjectList<TPrecoClimba>);
+    public
+      property lista : TObjectList<TPrecoClimba> read Flista write Setlista;
+      constructor Create();
+      destructor Destroy();
   end;
 
 implementation
@@ -55,17 +65,21 @@ begin
   Fprice := Value;
 end;
 
-class function TPrecoClimba.JsonStringParaObjeto(AjsonString: string): TPrecoClimba;
-  var
-  JSonValue : TJSonValue;
+{ TPrecoClimbaLista }
+
+constructor TPrecoClimbaLista.Create;
 begin
-  JsonValue := TJSonObject.ParseJSONValue(AjsonString);
-  Result := TJson.JsonToObject<TPrecoClimba>(AjsonString);
+  Flista := TObjectList<TPrecoClimba>.Create();
 end;
 
-function TPrecoClimba.ToJsonString: string;
+destructor TPrecoClimbaLista.Destroy;
 begin
-  result := TJson.ObjectToJsonString(Self);
+  Flista.Free;
+end;
+
+procedure TPrecoClimbaLista.Setlista(const Value: TObjectList<TPrecoClimba>);
+begin
+  Flista := Value;
 end;
 
 end.

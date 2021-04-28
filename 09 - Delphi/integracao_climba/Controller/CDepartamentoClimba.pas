@@ -2,16 +2,22 @@ unit CDepartamentoClimba;
 
 interface
 uses
-  MDepartamentoClimba, MConexaoDepartamentoClimba,MUtils;
+  MDepartamentoClimba, MConexaoDepartamentoClimba,MUtils, CInterfaceClimba, System.Generics.Collections;
 
 
   type
-  TCDepartamentoClimba = class
+  TCDepartamentoClimba = class(TInterfacedObject,iControllerClimba)
   private
   public
-    DepartamentoClimba : TDepartamentoClimba;
-    ConexaoDepartamentoClimba : TConexaoDepartamentoClimba;
-    function CadastrarDepartamento(id, nome: string): string;
+    Departamento : TDepartamentoClimba;
+    Conexao : TConexaoDepartamentoClimba;
+
+    class function New():iControllerClimba;
+    function Cadastrar(parametros: TDictionary<string,string>) : string;
+    function Alterar(parametros: TDictionary<string,string>)   : string;
+    function Consultar(const id : string)                : string;
+    function ConsultarTodos()                            : string;
+
     constructor create();
     destructor destroy();
 
@@ -23,28 +29,71 @@ implementation
 
 { TCDepartamento }
 
-function TCDepartamentoClimba.CadastrarDepartamento(id, nome: string): string;
+function TCDepartamentoClimba.Alterar(parametros : TDictionary<string,string>): string;
 begin
   try
-    DepartamentoClimba.id     := id;
-    DepartamentoClimba.name   := nome;
-    DepartamentoClimba := ConexaoDepartamentoClimba.POST(DepartamentoClimba);
-    result := TUtils.ToJsonString(DepartamentoClimba);
+    try
+      Departamento.id   := parametros.Items['id'];
+      Departamento.name := parametros.Items['name'];
+      Departamento      := Conexao.PUT(Departamento);
+      result            := TUtils.ToJsonString(Departamento);
+    except
+      Result := Conexao.ResultadoErrado;
+    end;
+  finally
+    parametros.Clear;
+  end;
+end;
+
+function TCDepartamentoClimba.Cadastrar(parametros : TDictionary<string,string>): string;
+begin
+  try
+    try
+      Departamento.id   := parametros.Items['id'];
+      Departamento.name := parametros.Items['name'];
+      Departamento      := Conexao.POST(Departamento);
+      result            := TUtils.ToJsonString(Departamento);
+    except
+      Result := Conexao.ResultadoErrado;
+    end;
+  finally
+    parametros.Clear;
+  end;
+end;
+
+function TCDepartamentoClimba.Consultar(const id: string): string;
+begin
+  try
+    Result := TUtils.ToJsonString(Conexao.GET(id));
   except
-    Result := ConexaoDepartamentoClimba.ResultaErrado;
+    Result := Conexao.ResultadoErrado;
+  end;
+end;
+
+function TCDepartamentoClimba.ConsultarTodos: string;
+begin
+  try
+    Result := TUtils.ToJsonString(Conexao.GET_ALL());
+  except
+    Result := Conexao.ResultadoErrado;
   end;
 end;
 
 constructor TCDepartamentoClimba.create;
 begin
-  DepartamentoClimba        := TDepartamentoClimba.Create();
-  ConexaoDepartamentoClimba := TConexaoDepartamentoClimba.Create();
+  Departamento := TDepartamentoClimba.Create();
+  Conexao      := TConexaoDepartamentoClimba.Create();
 end;
 
 destructor TCDepartamentoClimba.destroy;
 begin
-  DepartamentoClimba.Free;
-  ConexaoDepartamentoClimba.Free;
+  Departamento.Free;
+  Conexao.Free;
+end;
+
+class function TCDepartamentoClimba.New: iControllerClimba;
+begin
+  Result := Self.create();
 end;
 
 end.

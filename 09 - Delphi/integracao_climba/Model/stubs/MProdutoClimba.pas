@@ -62,8 +62,15 @@ type
     property ProductVariants: TObjectList<TProductVariants> read GetProductVariants;
     property Status: string read FStatus write FStatus;
     destructor Destroy; override;
-    class function JsonStringParaObjeto(AjsonString: string): TProdutoClimba;
-    function ToJsonString: string;
+  end;
+  TListaProdutoClimba = class
+    private
+    Flista: TObjectList<TProdutoClimba>;
+    procedure Setlista(const Value: TObjectList<TProdutoClimba>);
+    public
+      property lista : TObjectList<TProdutoClimba> read Flista write Setlista;
+      constructor Create();
+      destructor Destroy();
   end;
 
 implementation
@@ -108,17 +115,22 @@ begin
   Result := FProductVariants;
 end;
 
-class function TProdutoClimba.JsonStringParaObjeto(AjsonString: string): TProdutoClimba;
-  var
-  JSonValue : TJSonValue;
+{ TListaProdutoClimba }
+
+constructor TListaProdutoClimba.Create;
 begin
-  JsonValue := TJSonObject.ParseJSONValue(AjsonString);
-  Result := TJson.JsonToObject<TProdutoClimba>(AjsonString);
+  Flista := TObjectList<TProdutoClimba>.Create();
 end;
 
-function TProdutoClimba.ToJsonString: string;
+destructor TListaProdutoClimba.Destroy;
 begin
-  result := TJson.ObjectToJsonString(Self);
+  Flista.Free();
+end;
+
+procedure TListaProdutoClimba.Setlista(
+  const Value: TObjectList<TProdutoClimba>);
+begin
+  Flista := Value;
 end;
 
 end.

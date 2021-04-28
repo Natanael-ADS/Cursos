@@ -1,6 +1,9 @@
 unit MMarcaClimba;
 
 interface
+
+uses
+  System.Generics.Collections;
 type
   TMarcaClimba = class
     private
@@ -16,8 +19,15 @@ type
       property description: string read Fdescription write Setdescription;
       constructor Create();
       destructor Detroy();
-      class function JsonStringParaObjeto(AjsonString: string): TMarcaClimba;
-      function ToJsonString: string;
+  end;
+  TMarcaClimbaLista = class
+    private
+      Flista: TObjectList<TMarcaClimba>;
+      procedure Setlista(const Value: TObjectList<TMarcaClimba>);
+    public
+      property lista : TObjectList<TMarcaClimba> read Flista write Setlista;
+      constructor Create();
+      destructor Destroy();
   end;
 implementation
 
@@ -50,17 +60,21 @@ begin
   Fname := Value;
 end;
 
-class function TMarcaClimba.JsonStringParaObjeto(AjsonString: string): TMarcaClimba;
-  var
-  JSonValue : TJSonValue;
+{ TMarcaClimbaLista }
+
+constructor TMarcaClimbaLista.Create;
 begin
-  JsonValue := TJSonObject.ParseJSONValue(AjsonString);
-  Result := TJson.JsonToObject<TMarcaClimba>(AjsonString);
+  Flista := TObjectList<TMarcaClimba>.Create();
 end;
 
-function TMarcaClimba.ToJsonString: string;
+destructor TMarcaClimbaLista.Destroy;
 begin
-  result := TJson.ObjectToJsonString(Self);
+  Flista.Free;
+end;
+
+procedure TMarcaClimbaLista.Setlista(const Value: TObjectList<TMarcaClimba>);
+begin
+  Flista := Value;
 end;
 
 end.

@@ -2,17 +2,24 @@ unit CPrecoClimba;
 
 interface
 uses
-  MPrecoClimba, MConexaoPrecoClimba;
+  MPrecoClimba, MConexaoPrecoClimba, MUtils,CInterfaceClimba, System.Generics.Collections;
 
   type
-  TCPrecoClimba = class
+  TCPrecoClimba = class(TInterfacedObject,iControllerClimba)
   private
 
   public
-    PrecoClimba: TPrecoClimba;
-    ConexaoPrecoClimba: TConexaoPrecoClimba;
-    function CadastrarPreco(id, nome: string): string;
-    function ConsultarPreco():TPrecoClimba;
+    preco: TPrecoClimba;
+    conexao: TConexaoPrecoClimba;
+
+    class function New() : iControllerClimba;
+    function Cadastrar(parametros : TDictionary<string,string>): string;
+    function Alterar(parametros : TDictionary<string,string>)  : string;
+    function Consultar(const id: string)                 : string;
+    function ConsultarTodos()                            : string;
+
+    function CriarObjeto(id,name:string; preco: Integer): TPrecoClimba;
+
     constructor create();
     destructor destroy();
 
@@ -23,32 +30,66 @@ implementation
 
 { TCPrecoClimba }
 
-function TCPrecoClimba.CadastrarPreco(id, nome: string): string;
+function TCPrecoClimba.Alterar(parametros: TDictionary<string, string>): string;
 begin
   try
-    PrecoClimba.id := id;
-    PrecoClimba.name := nome;
-    result := ConexaoPrecoClimba.POST(PrecoClimba).ToJsonString;
+    preco.id := parametros.Items['id'];
+    preco.name := parametros.Items['name'];
+    result := TUtils.ToJsonString(conexao.PUT(preco));
   except
-    Result := ConexaoPrecoClimba.ResultaErrado;
+    Result := conexao.ResultadoErrado;
   end;
 end;
 
-function TCPrecoClimba.ConsultarPreco: TPrecoClimba;
+function TCPrecoClimba.Cadastrar(parametros : TDictionary<string,string>): string;
 begin
-  Result:= TPrecoClimba.Create('1','Padrão',0);
+  try
+    preco.id := parametros.Items['id'];
+    preco.name := parametros.Items['name'];
+    result := TUtils.ToJsonString(conexao.POST(preco));
+  except
+    Result := conexao.ResultadoErrado;
+  end;
+end;
+
+function TCPrecoClimba.Consultar(const id: string): string;
+begin
+  try
+    Result:= TUtils.ToJsonString(conexao.GET(id));
+  except
+     Result:= conexao.ResultadoErrado;
+  end;
+end;
+
+function TCPrecoClimba.ConsultarTodos: string;
+begin
+  try
+    Result := TUtils.ToJsonString(conexao.GET_ALL);
+  except
+    Result:= conexao.ResultadoErrado;
+  end;
 end;
 
 constructor TCPrecoClimba.create;
 begin
-  PrecoClimba := TPrecoClimba.Create('','',0);
-  ConexaoPrecoClimba := TConexaoPrecoClimba.Create();
+  preco := TPrecoClimba.Create('','',0);
+  conexao := TConexaoPrecoClimba.Create();
+end;
+
+function TCPrecoClimba.CriarObjeto(id,name:string; preco: Integer): TPrecoClimba;
+begin
+  Result:= TPrecoClimba.Create(id,name,preco);
 end;
 
 destructor TCPrecoClimba.destroy;
 begin
-  PrecoClimba.Free;
-  ConexaoPrecoClimba.Free;
+  preco.Free;
+  conexao.Free;
+end;
+
+class function TCPrecoClimba.New: iControllerClimba;
+begin
+   Result:= Self.create
 end;
 
 end.

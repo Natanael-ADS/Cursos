@@ -3,16 +3,21 @@ unit CMarcaClimba;
 interface
 
 uses
-  MMarcaClimba, MConexaoMarcaClimba;
+  MMarcaClimba, MConexaoMarcaClimba,MUtils,CInterfaceClimba, System.Generics.Collections;
 
   type
-  TCMarcaClimba = class
+  TCMarcaClimba = class(TInterfacedObject,iControllerClimba)
   private
 
   public
-    MarcaClimba: TMarcaClimba;
-    ConexaoMarcaClimba: TConexaoMarcaClimba;
-    function CadastrarMarca(id, nome: string): string;
+    Marca: TMarcaClimba;
+    Conexao: TConexaoMarcaClimba;
+    class function New(): iControllerClimba;
+    function Cadastrar(parametros : TDictionary<string,string>): string;
+    function Alterar(parametros : TDictionary<string,string>)  : string;
+    function Consultar(const id: string)                 : string;
+    function ConsultarTodos()                            : string;
+
     constructor create();
     destructor destroy();
 
@@ -23,27 +28,62 @@ implementation
 
 { TCMarcaClimba }
 
-function TCMarcaClimba.CadastrarMarca(id, nome: string): string;
+function TCMarcaClimba.Alterar(parametros: TDictionary<string, string>): string;
 begin
   try
-    MarcaClimba.id := id;
-    MarcaClimba.name := nome;
-    result := ConexaoMarcaClimba.POST(MarcaClimba).ToJsonString;
+    Marca.id := parametros.Items['id'];
+    Marca.name := parametros.Items['name'];
+    result := TUtils.ToJsonString(Conexao.PUT(Marca));
   except
-    Result := ConexaoMarcaClimba.ResultaErrado;
+    Result := Conexao.ResultadoErrado;
+  end;
+end;
+
+function TCMarcaClimba.Cadastrar(parametros : TDictionary<string,string>): string;
+begin
+  try
+    Marca.id := parametros.Items['id'];
+    Marca.name := parametros.Items['name'];
+    result := TUtils.ToJsonString(Conexao.POST(Marca));
+  except
+    Result := Conexao.ResultadoErrado;
+  end;
+end;
+
+function TCMarcaClimba.Consultar(const id: string): string;
+begin
+  try
+    Result := TUtils.ToJsonString(Conexao.GET(id));
+  except
+    Result := Conexao.ResultadoErrado;
+  end;
+
+end;
+
+function TCMarcaClimba.ConsultarTodos: string;
+begin
+  try
+    Result := TUtils.ToJsonString(Conexao.GET_ALL);
+  except
+    Result := Conexao.ResultadoErrado;
   end;
 end;
 
 constructor TCMarcaClimba.create;
 begin
-  MarcaClimba := TMarcaClimba.Create();
-  ConexaoMarcaClimba := TConexaoMarcaClimba.Create();
+  Marca := TMarcaClimba.Create();
+  Conexao := TConexaoMarcaClimba.Create();
 end;
 
 destructor TCMarcaClimba.destroy;
 begin
-  MarcaClimba.Free;
-  ConexaoMarcaClimba.Free;
+  Marca.Free;
+  Conexao.Free;
+end;
+
+class function TCMarcaClimba.New: iControllerClimba;
+begin
+
 end;
 
 end.

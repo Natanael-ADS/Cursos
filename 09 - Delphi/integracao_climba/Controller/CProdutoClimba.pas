@@ -2,18 +2,23 @@ unit CProdutoClimba;
 
 interface
 uses
-  MProdutoClimba, MConexaoProdutoClimba, System.Generics.Collections;
+  MProdutoClimba, MConexaoProdutoClimba, System.Generics.Collections, CInterfaceClimba;
 
   type
-  TCProdutoClimba = class
+  TCProdutoClimba = class(TInterfacedObject,iControllerClimba)
   private
 
   public
-    ProdutoClimba: TProdutoClimba;
-    ConexaoProdutoClimba: TConexaoProdutoClimba;
-    function CarregaProduto(codigo_interno: string): TCProdutoClimba;
-    function SincronizarCadastro():string;
-    function PropriedadesDoProduto(): TProductVariants;
+    Produto: TProdutoClimba;
+    Conexao: TConexaoProdutoClimba;
+    function PropriedadesDoProduto(parametros : TDictionary<string,string>): TProductVariants;
+
+    class function New(): iControllerClimba;
+    function Cadastrar(parametros : TDictionary<string,string>): string;
+    function Alterar(parametros : TDictionary<string,string>)  : string;
+    function Consultar(const id: string)                 : string;
+    function ConsultarTodos()                            : string;
+
     constructor create();
     destructor destroy();
 
@@ -21,65 +26,109 @@ uses
 
 implementation
 uses
-  CPrecoClimba;
+  CPrecoClimba, MUtils, System.SysUtils;
 { TCProdutoClimba }
 
-function TCProdutoClimba.CarregaProduto(codigo_interno: string): TCProdutoClimba;
+function TCProdutoClimba.Alterar(parametros: TDictionary<string, string>): string;
 begin
   try
-    ProdutoClimba.id := codigo_interno;
-    ProdutoClimba.name := ' Teste 1';
-    ProdutoClimba.BrandId:= 'idmarca';
-    ProdutoClimba.Categories := ['idcategoria'];
-    ProdutoClimba.Description:= ' Teste teste teste';
-    ProdutoClimba.ProductVariants.Add(PropriedadesDoProduto());
-    ProdutoClimba.Status:= '1';
-    Result := Self;
+    Produto.id          := parametros.Items['id'];
+    Produto.name        := parametros.Items['name'];
+    Produto.BrandId     := parametros.Items['BrandId'];
+    Produto.Categories  := [parametros.Items['Categories']];
+    Produto.Description := parametros.Items['DescriptionProduto'];
+    Produto.Status      := parametros.Items['status'];
+    Produto.ProductVariants.Add(PropriedadesDoProduto(parametros));
+
+    result := TUtils.ToJsonString(Conexao.PUT(Produto));
   except
+    Result := Conexao.ResultadoErrado;
     raise;
   end;
+end;
 
+function TCProdutoClimba.Cadastrar(parametros : TDictionary<string,string>): string;
+begin
+  try
+    Produto.id          := parametros.Items['id'];
+    Produto.name        := parametros.Items['name'];
+    Produto.BrandId     := parametros.Items['BrandId'];
+    Produto.Categories  := [parametros.Items['Categories']];
+    Produto.Description := parametros.Items['DescriptionProduto'];
+    Produto.Status      := parametros.Items['status'];
+    Produto.ProductVariants.Add(PropriedadesDoProduto(parametros));
+
+    result := TUtils.ToJsonString(Conexao.POST(Produto));
+  except
+    Result := Conexao.ResultadoErrado;
+    raise;
+  end;
+end;
+
+function TCProdutoClimba.Consultar(const id: string): string;
+begin
+  try
+    Result := TUtils.ToJsonString(Conexao.GET(id));
+  except
+    Result := Conexao.ResultadoErrado;
+  end;
+end;
+
+function TCProdutoClimba.ConsultarTodos: string;
+begin
+  try
+    Result := TUtils.ToJsonString(Conexao.GET_ALL());
+  except
+    Result := Conexao.ResultadoErrado;
+  end;
 end;
 
 constructor TCProdutoClimba.create;
 begin
-  ProdutoClimba := TProdutoClimba.Create();
-  ConexaoProdutoClimba := TConexaoProdutoClimba.Create();
+  Produto := TProdutoClimba.Create();
+  Conexao := TConexaoProdutoClimba.Create();
 end;
 
 destructor TCProdutoClimba.destroy;
 begin
-  ProdutoClimba.Free;
-  ConexaoProdutoClimba.Free;
+  Produto.Free;
+  Conexao.Free;
 end;
 
-function TCProdutoClimba.PropriedadesDoProduto(): TProductVariants;
-var
-  Propriedade : TProductVariants;
-  PrecoClimba : TCPrecoClimba;
+class function TCProdutoClimba.New: iControllerClimba;
 begin
-  PrecoClimba := TCPrecoClimba.create;
-  Propriedade := TProductVariants.Create;
-  Propriedade.BarCode:= '';
-  Propriedade.Description:= 'teste teste teste teste';
-  Propriedade.GrossWeight:= 10;
-  Propriedade.Height:= 10;
-  Propriedade.Length:= 10;
-  Propriedade.ManufacturerCode:= '111111';
-  Propriedade.NetWeight:= 10;
-  Propriedade.Prices.Add(PrecoClimba.ConsultarPreco);
-  Propriedade.Quantity:= 15;
-  Propriedade.Sku:= '111111';
-  Propriedade.Width:= 10;
-  Result := Propriedade;
+  Result:= Self.Create;
 end;
 
-function TCProdutoClimba.SincronizarCadastro: string;
+function TCProdutoClimba.PropriedadesDoProduto(parametros : TDictionary<string,string>): TProductVariants;
+var
+  PrecoClimba : TCPrecoClimba;
+  Propriedade: TProductVariants;
 begin
   try
-    result := ConexaoProdutoClimba.POST(ProdutoClimba).ToJsonString;
-  except
-    Result := ConexaoProdutoClimba.ResultaErrado;
+    try
+      PrecoClimba                  := TCPrecoClimba.create;
+      Propriedade                  := TProductVariants.Create;
+      Propriedade.Sku              := parametros.Items['Sku'];
+      Propriedade.BarCode          := parametros.Items['BarCode'];
+      Propriedade.Description      := parametros.Items['DescriptionPropriedade'];
+      Propriedade.ManufacturerCode := parametros.Items['ManufacturerCode'];
+      Propriedade.GrossWeight      := StrToInt(parametros.Items['GrossWeight']);
+      Propriedade.Height           := StrToInt(parametros.Items['Height']);
+      Propriedade.Length           := StrToInt(parametros.Items['Length']);
+      Propriedade.NetWeight        := StrToInt(parametros.Items['NetWeight']);
+      Propriedade.Quantity         := StrToInt(parametros.Items['Quantity']);
+      Propriedade.Width            := StrToInt(parametros.Items['Width']);
+      Propriedade.Prices.Add(PrecoClimba.CriarObjeto(parametros.Items['idPreco'],
+                                                      parametros.Items['namePreco'],
+                                                  StrToInt(parametros.Items['Preco'])));
+
+      Result                       := propriedade;
+    except
+      raise;
+    end;
+  finally
+    PrecoClimba.Free;
   end;
 end;
 

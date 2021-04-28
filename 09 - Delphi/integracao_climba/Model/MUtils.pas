@@ -10,7 +10,7 @@ type
     public
       class procedure MsgCodeStatusHTTP(codigo:integer);
       class function JsonStringParaObjeto(AjsonString: string): TObject;
-      class function JsonStringParaObjetoList(AjsonString: string):  TObjectList<TObject>;
+      class function JsonStringParaObjetoList(AjsonString: string): TObjectList<TObject>;
       class function ToJsonString(obj: TObject): string;
   end;
 

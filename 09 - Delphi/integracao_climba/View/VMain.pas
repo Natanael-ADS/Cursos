@@ -6,7 +6,7 @@ uses
     Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
     System.Classes, Vcl.Graphics,
     Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls,
-    CMarcaClimba, CDepartamentoClimba,CPrecoClimba, CProdutoClimba;
+    CMarcaClimba, CDepartamentoClimba,CPrecoClimba, CProdutoClimba, System.Generics.Collections;
 
 type
     Method = (GET,GET_ALL,PUT,POST);
@@ -32,6 +32,7 @@ type
     MarcaClimba: TCMarcaClimba;
     PrecoClimba: TCPrecoClimba;
     ProdutoClimba: TCProdutoClimba;
+    parametros : TDictionary<string,string>;
   public
         { Public declarations }
     end;
@@ -46,11 +47,15 @@ implementation
 procedure TForm1.btndepartamentoClick(Sender: TObject);
 begin
   mmResposta.lines.Clear;
+
+  parametros.Clear;
+  parametros.Add('id','1');
+  parametros.Add('name','Teste 1');
   case Method(rgTipo.ItemIndex) of
-      GET     :resposta := 'GET'     +#13+DepartamentoClimba.CadastrarDepartamento('1','teste 1');
-      GET_ALL :resposta := 'GET_ALL' +#13+DepartamentoClimba.CadastrarDepartamento('1','teste 1');
-      PUT     :resposta := 'PUT'     +#13+DepartamentoClimba.CadastrarDepartamento('1','teste 1');
-      POST    :resposta := 'POST'    +#13+DepartamentoClimba.CadastrarDepartamento('1','teste 1');
+      GET     :resposta := 'GET'     +#13+DepartamentoClimba.Consultar('1');
+      GET_ALL :resposta := 'GET_ALL' +#13+DepartamentoClimba.ConsultarTodos();
+      PUT     :resposta := 'PUT'     +#13+DepartamentoClimba.Alterar(nil);
+      POST    :resposta := 'POST'    +#13+DepartamentoClimba.Cadastrar(parametros);
   end;
   mmResposta.Lines.Add(resposta);
 end;
@@ -58,11 +63,15 @@ end;
 procedure TForm1.btnMarcaClick(Sender: TObject);
 begin
   mmResposta.lines.Clear;
+  parametros.clear;
+  parametros.Add('id','1');
+  parametros.Add('name','Teste 1');
+
   case Method(rgTipo.ItemIndex) of
-      GET     :resposta := 'GET'     +#13+MarcaClimba.CadastrarMarca('1','teste 1');
-      GET_ALL :resposta := 'GET_ALL' +#13+MarcaClimba.CadastrarMarca('1','teste 1');
-      PUT     :resposta := 'PUT'     +#13+MarcaClimba.CadastrarMarca('1','teste 1');
-      POST    :resposta := 'POST'    +#13+MarcaClimba.CadastrarMarca('1','teste 1');
+      GET     :resposta := 'GET'     +#13+MarcaClimba.Consultar('1');
+      GET_ALL :resposta := 'GET_ALL' +#13+MarcaClimba.ConsultarTodos();
+      PUT     :resposta := 'PUT'     +#13+MarcaClimba.Alterar(nil);
+      POST    :resposta := 'POST'    +#13+MarcaClimba.Cadastrar(parametros);
   end;
   mmResposta.Lines.Add(resposta);
 end;
@@ -70,11 +79,14 @@ end;
 procedure TForm1.btnPrecoClick(Sender: TObject);
 begin
   mmResposta.lines.Clear;
+  parametros.clear;
+  parametros.Add('id','1');
+  parametros.Add('name','teste 1 ');
   case Method(rgTipo.ItemIndex) of
-      GET     :resposta := 'GET'     +#13+PrecoClimba.CadastrarPreco('1','teste 1');
-      GET_ALL :resposta := 'GET_ALL' +#13+PrecoClimba.CadastrarPreco('1','teste 1');
-      PUT     :resposta := 'PUT'     +#13+PrecoClimba.CadastrarPreco('1','teste 1');
-      POST    :resposta := 'POST'    +#13+PrecoClimba.CadastrarPreco('1','teste 1');
+      GET     :resposta := 'GET'     +#13+PrecoClimba.Consultar('1');
+      GET_ALL :resposta := 'GET_ALL' +#13+PrecoClimba.ConsultarTodos();
+      PUT     :resposta := 'PUT'     +#13+PrecoClimba.Alterar(nil);
+      POST    :resposta := 'POST'    +#13+PrecoClimba.Cadastrar(parametros);
   end;
   mmResposta.Lines.Add(resposta);
 end;
@@ -82,11 +94,32 @@ end;
 procedure TForm1.btnProdutoClick(Sender: TObject);
 begin
   mmResposta.lines.Clear;
+  parametros.clear;
+  parametros.Add('id','1');
+  parametros.Add('name','teste');
+  parametros.Add('BrandId','1');
+  parametros.Add('Categories','1');
+  parametros.Add('DescriptionProduto','testestestse');
+  parametros.Add('Status','1');
+  parametros.Add('Sku','11111111');
+  parametros.Add('BarCode','111111');
+  parametros.Add('DescriptionPropriedade','testestestes');
+  parametros.Add('ManufacturerCode','111111');
+  parametros.Add('GrossWeight','1111');
+  parametros.Add('Height','1111');
+  parametros.Add('Length','111');
+  parametros.Add('NetWeight','111');
+  parametros.Add('Quantity','111');
+  parametros.Add('Width','111');
+  parametros.Add('idPreco','1');
+  parametros.Add('namePreco','teste 1');
+  parametros.Add('Preco','1984');
+
   case Method(rgTipo.ItemIndex) of
-      GET     :resposta := 'GET'     +#13+ProdutoClimba.CarregaProduto('1').SincronizarCadastro;
-      GET_ALL :resposta := 'GET_ALL' +#13+ProdutoClimba.CarregaProduto('1').SincronizarCadastro;
-      PUT     :resposta := 'PUT'     +#13+ProdutoClimba.CarregaProduto('1').SincronizarCadastro;
-      POST    :resposta := 'POST'    +#13+ProdutoClimba.CarregaProduto('1').SincronizarCadastro;
+      GET     :resposta := 'GET'     +#13+ProdutoClimba.Consultar('1');
+      GET_ALL :resposta := 'GET_ALL' +#13+ProdutoClimba.ConsultarTodos();
+      PUT     :resposta := 'PUT'     +#13+ProdutoClimba.Alterar(nil);
+      POST    :resposta := 'POST'    +#13+ProdutoClimba.Cadastrar(parametros);
   end;
   mmResposta.Lines.Add(resposta);
 end;
@@ -97,6 +130,7 @@ begin
    MarcaClimba        := TCMarcaClimba.Create();
    PrecoClimba        := TCPrecoClimba.Create();
    ProdutoClimba      := TCProdutoClimba.Create();
+   parametros         := TDictionary<string,string>.Create();
 end;
 
 procedure TForm1.FormDestroy(Sender: TObject);
@@ -105,6 +139,7 @@ begin
     MarcaClimba.Free;
     PrecoClimba.Free;
     ProdutoClimba.Free;
+    parametros.Free;
 end;
 
 end.

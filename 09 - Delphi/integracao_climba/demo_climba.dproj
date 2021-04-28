@@ -118,7 +118,8 @@
         <DCCReference Include="Model\stubs\MProdutoClimba.pas"/>
         <DCCReference Include="Model\internet\MConexaoProdutoClimba.pas"/>
         <DCCReference Include="Controller\CProdutoClimba.pas"/>
-        <DCCReference Include="Model\MCodeStatus.pas"/>
+        <DCCReference Include="Model\MUtils.pas"/>
+        <DCCReference Include="Controller\CInterfaceClimba.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
