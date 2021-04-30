@@ -26,7 +26,7 @@ function TConexaoProdutoClimba.GET_ALL: TListaProdutoClimba;
 begin
   try
     jsonStringRetornado := TConexaoClimba.RequisicaoClimba('GET',EmptyStr,'products');
-    result := TUtils.JsonStringParaObjeto(jsonStringRetornado) as TListaProdutoClimba;
+    //result := TListaProdutoClimba.JsonStringParaObjeto(jsonStringRetornado);
   except
     ResultadoErrado := jsonStringRetornado;
   end;
@@ -35,8 +35,8 @@ end;
 function TConexaoProdutoClimba.POST(const produto: TProdutoClimba):TProdutoClimba;
 begin
   try
-    jsonStringRetornado := TConexaoClimba.RequisicaoClimba('POST',TUtils.ToJsonString(produto),'products');
-    result := TUtils.JsonStringParaObjeto(jsonStringRetornado) as TProdutoClimba;
+    jsonStringRetornado := TConexaoClimba.RequisicaoClimba('POST',produto.ToJsonString,'products');
+    result := TProdutoClimba.JsonStringParaObjeto(jsonStringRetornado);
   except
     ResultadoErrado := jsonStringRetornado;
   end;
@@ -45,8 +45,8 @@ end;
 function TConexaoProdutoClimba.GET(const idpreco: string): TProdutoClimba;
 begin
   try
-    jsonStringRetornado := TConexaoClimba.RequisicaoClimba('POST',EmptyStr,'/products/'+idpreco);
-    result := TUtils.JsonStringParaObjeto(jsonStringRetornado) as TProdutoClimba;
+    jsonStringRetornado := TConexaoClimba.RequisicaoClimba('GET',EmptyStr,'/products/'+idpreco);
+    result := TProdutoClimba.JsonStringParaObjeto(jsonStringRetornado);
   except
     ResultadoErrado := jsonStringRetornado;
   end;
@@ -55,8 +55,8 @@ end;
 function TConexaoProdutoClimba.PUT(const produto: TProdutoClimba):TProdutoClimba;
 begin
   try
-    jsonStringRetornado := TConexaoClimba.RequisicaoClimba('PUT',TUtils.ToJsonString(produto),'/products/'+produto.Id);
-    result := TUtils.JsonStringParaObjeto(jsonStringRetornado) as TProdutoClimba;
+    jsonStringRetornado := TConexaoClimba.RequisicaoClimba('PUT',produto.ToJsonString,'/products/'+produto.Id);
+    result := TProdutoClimba.JsonStringParaObjeto(jsonStringRetornado);
   except
     ResultadoErrado := jsonStringRetornado;
   end;

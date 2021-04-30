@@ -52,9 +52,9 @@ begin
   parametros.Add('id','1');
   parametros.Add('name','Teste 1');
   case Method(rgTipo.ItemIndex) of
-      GET     :resposta := 'GET'     +#13+DepartamentoClimba.Consultar('1');
+      GET     :resposta := 'GET'     +#13+DepartamentoClimba.Consultar(parametros.Items['id']);
       GET_ALL :resposta := 'GET_ALL' +#13+DepartamentoClimba.ConsultarTodos();
-      PUT     :resposta := 'PUT'     +#13+DepartamentoClimba.Alterar(nil);
+      PUT     :resposta := 'PUT'     +#13+DepartamentoClimba.Alterar(parametros);
       POST    :resposta := 'POST'    +#13+DepartamentoClimba.Cadastrar(parametros);
   end;
   mmResposta.Lines.Add(resposta);
@@ -68,7 +68,7 @@ begin
   parametros.Add('name','Teste 1');
 
   case Method(rgTipo.ItemIndex) of
-      GET     :resposta := 'GET'     +#13+MarcaClimba.Consultar('1');
+      GET     :resposta := 'GET'     +#13+MarcaClimba.Consultar(parametros.Items['id']);
       GET_ALL :resposta := 'GET_ALL' +#13+MarcaClimba.ConsultarTodos();
       PUT     :resposta := 'PUT'     +#13+MarcaClimba.Alterar(nil);
       POST    :resposta := 'POST'    +#13+MarcaClimba.Cadastrar(parametros);
@@ -80,12 +80,12 @@ procedure TForm1.btnPrecoClick(Sender: TObject);
 begin
   mmResposta.lines.Clear;
   parametros.clear;
-  parametros.Add('id','1');
-  parametros.Add('name','teste 1 ');
+  parametros.Add('id','2');
+  parametros.Add('name','teste 2');
   case Method(rgTipo.ItemIndex) of
-      GET     :resposta := 'GET'     +#13+PrecoClimba.Consultar('1');
+      GET     :resposta := 'GET'     +#13+PrecoClimba.Consultar(parametros.Items['id']);
       GET_ALL :resposta := 'GET_ALL' +#13+PrecoClimba.ConsultarTodos();
-      PUT     :resposta := 'PUT'     +#13+PrecoClimba.Alterar(nil);
+      PUT     :resposta := 'PUT'     +#13+PrecoClimba.Alterar(parametros);
       POST    :resposta := 'POST'    +#13+PrecoClimba.Cadastrar(parametros);
   end;
   mmResposta.Lines.Add(resposta);
@@ -116,9 +116,9 @@ begin
   parametros.Add('Preco','1984');
 
   case Method(rgTipo.ItemIndex) of
-      GET     :resposta := 'GET'     +#13+ProdutoClimba.Consultar('1');
+      GET     :resposta := 'GET'     +#13+ProdutoClimba.Consultar(parametros.Items['id']);
       GET_ALL :resposta := 'GET_ALL' +#13+ProdutoClimba.ConsultarTodos();
-      PUT     :resposta := 'PUT'     +#13+ProdutoClimba.Alterar(nil);
+      PUT     :resposta := 'PUT'     +#13+ProdutoClimba.Alterar(parametros);
       POST    :resposta := 'POST'    +#13+ProdutoClimba.Cadastrar(parametros);
   end;
   mmResposta.Lines.Add(resposta);

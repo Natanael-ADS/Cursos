@@ -10,22 +10,19 @@ type
       Fname: string;
       Fid: string;
       Fdescription: string;
-      procedure Setdescription(const Value: string);
-      procedure Setid(const Value: string);
-      procedure Setname(const Value: string);
     public
-      property id : string read Fid write Setid;
-      property name: string read Fname write Setname;
-      property description: string read Fdescription write Setdescription;
-      constructor Create();
-      destructor Detroy();
+      property id : string read Fid write Fid;
+      property name: string read Fname write Fname;
+      property description: string read Fdescription write Fdescription;
+      class function JsonStringParaObjeto(AjsonString: string): TMarcaClimba;
+      function ToJsonString(): string;
+
   end;
   TMarcaClimbaLista = class
     private
       Flista: TObjectList<TMarcaClimba>;
-      procedure Setlista(const Value: TObjectList<TMarcaClimba>);
     public
-      property lista : TObjectList<TMarcaClimba> read Flista write Setlista;
+      property lista : TObjectList<TMarcaClimba> read Flista write Flista;
       constructor Create();
       destructor Destroy();
   end;
@@ -35,29 +32,17 @@ implementation
 uses
   REST.JSON, System.JSON;
 
-constructor TMarcaClimba.Create;
+function TMarcaClimba.ToJsonString(): string;
 begin
-
+   result := TJson.ObjectToJsonString(Self);
 end;
 
-destructor TMarcaClimba.Detroy;
+class function TMarcaClimba.JsonStringParaObjeto(AjsonString: string): TMarcaClimba;
+var
+  JSonValue : TJSonValue;
 begin
-
-end;
-
-procedure TMarcaClimba.Setdescription(const Value: string);
-begin
-  Fdescription := Value;
-end;
-
-procedure TMarcaClimba.Setid(const Value: string);
-begin
-  Fid := Value;
-end;
-
-procedure TMarcaClimba.Setname(const Value: string);
-begin
-  Fname := Value;
+  JsonValue := TJSonObject.ParseJSONValue(AjsonString);
+  Result := TJson.JsonToObject<TMarcaClimba>(AjsonString);
 end;
 
 { TMarcaClimbaLista }
@@ -70,11 +55,6 @@ end;
 destructor TMarcaClimbaLista.Destroy;
 begin
   Flista.Free;
-end;
-
-procedure TMarcaClimbaLista.Setlista(const Value: TObjectList<TMarcaClimba>);
-begin
-  Flista := Value;
 end;
 
 end.

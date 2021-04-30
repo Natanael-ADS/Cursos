@@ -27,9 +27,8 @@ uses
 class procedure TConexaoClimba.CarregarConfiguracoes;
 begin
  // ler de algum local os dados do cliente
-   HOST_SERVER := 'https://staging-quantumsistemas.api.climbaapp.com.br/api/v1/';
-   API_TOKEN := 'ZjJjZmJiODE3NjMxODA4MzBmOWNmM2I0N2UwZTA3OTE6ZDNhOGExMmRkNzQ5NjU'+
-      '3ZDhlMTBiMmJmOGY0ZGE4MjI=';
+   HOST_SERVER := 'https://staging-quantumsistemas.api.climbaapp.com.br/api/v1';
+   API_TOKEN := 'ZjJjZmJiODE3NjMxODA4MzBmOWNmM2I0N2UwZTA3OTE6N2QxMTQyYzQ0MWE1MjI2MzQ4ZTRmYTI4NmQ1Y2FkZGY';
 end;
 
 class function TConexaoClimba.RequisicaoClimba(const ATipoRequisicao,StringJSON,URL: string): string;

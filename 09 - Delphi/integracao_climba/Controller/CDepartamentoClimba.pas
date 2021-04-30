@@ -35,8 +35,7 @@ begin
     try
       Departamento.id   := parametros.Items['id'];
       Departamento.name := parametros.Items['name'];
-      Departamento      := Conexao.PUT(Departamento);
-      result            := TUtils.ToJsonString(Departamento);
+      result            := Conexao.PUT(Departamento).ToJsonString();
     except
       Result := Conexao.ResultadoErrado;
     end;
@@ -51,8 +50,7 @@ begin
     try
       Departamento.id   := parametros.Items['id'];
       Departamento.name := parametros.Items['name'];
-      Departamento      := Conexao.POST(Departamento);
-      result            := TUtils.ToJsonString(Departamento);
+      result            := Conexao.POST(Departamento).ToJsonString();
     except
       Result := Conexao.ResultadoErrado;
     end;
@@ -64,7 +62,7 @@ end;
 function TCDepartamentoClimba.Consultar(const id: string): string;
 begin
   try
-    Result := TUtils.ToJsonString(Conexao.GET(id));
+    Result := Conexao.GET(id).ToJsonString();
   except
     Result := Conexao.ResultadoErrado;
   end;
@@ -73,7 +71,7 @@ end;
 function TCDepartamentoClimba.ConsultarTodos: string;
 begin
   try
-    Result := TUtils.ToJsonString(Conexao.GET_ALL());
+    //Result := TUtils.ToJsonString(Conexao.GET_ALL());
   except
     Result := Conexao.ResultadoErrado;
   end;

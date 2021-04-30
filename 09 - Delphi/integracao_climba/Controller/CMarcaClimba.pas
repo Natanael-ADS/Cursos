@@ -33,7 +33,7 @@ begin
   try
     Marca.id := parametros.Items['id'];
     Marca.name := parametros.Items['name'];
-    result := TUtils.ToJsonString(Conexao.PUT(Marca));
+    result := Conexao.PUT(Marca).ToJsonString();
   except
     Result := Conexao.ResultadoErrado;
   end;
@@ -44,7 +44,7 @@ begin
   try
     Marca.id := parametros.Items['id'];
     Marca.name := parametros.Items['name'];
-    result := TUtils.ToJsonString(Conexao.POST(Marca));
+    result := Conexao.POST(Marca).ToJsonString();
   except
     Result := Conexao.ResultadoErrado;
   end;
@@ -53,7 +53,7 @@ end;
 function TCMarcaClimba.Consultar(const id: string): string;
 begin
   try
-    Result := TUtils.ToJsonString(Conexao.GET(id));
+    Result := Conexao.GET(id).ToJsonString();
   except
     Result := Conexao.ResultadoErrado;
   end;
@@ -63,7 +63,7 @@ end;
 function TCMarcaClimba.ConsultarTodos: string;
 begin
   try
-    Result := TUtils.ToJsonString(Conexao.GET_ALL);
+    //Result := TUtils.ToJsonString(Conexao.GET_ALL);
   except
     Result := Conexao.ResultadoErrado;
   end;
@@ -83,7 +83,7 @@ end;
 
 class function TCMarcaClimba.New: iControllerClimba;
 begin
-
+  Result := Self.Create();
 end;
 
 end.

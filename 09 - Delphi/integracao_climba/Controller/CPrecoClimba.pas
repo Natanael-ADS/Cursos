@@ -35,7 +35,7 @@ begin
   try
     preco.id := parametros.Items['id'];
     preco.name := parametros.Items['name'];
-    result := TUtils.ToJsonString(conexao.PUT(preco));
+    result := conexao.PUT(preco).ToJsonString;
   except
     Result := conexao.ResultadoErrado;
   end;
@@ -46,7 +46,7 @@ begin
   try
     preco.id := parametros.Items['id'];
     preco.name := parametros.Items['name'];
-    result := TUtils.ToJsonString(conexao.POST(preco));
+    result := conexao.POST(preco).ToJsonString;
   except
     Result := conexao.ResultadoErrado;
   end;
@@ -55,7 +55,7 @@ end;
 function TCPrecoClimba.Consultar(const id: string): string;
 begin
   try
-    Result:= TUtils.ToJsonString(conexao.GET(id));
+    Result:= conexao.GET(id).ToJsonString;
   except
      Result:= conexao.ResultadoErrado;
   end;
@@ -64,7 +64,7 @@ end;
 function TCPrecoClimba.ConsultarTodos: string;
 begin
   try
-    Result := TUtils.ToJsonString(conexao.GET_ALL);
+    Result := conexao.GET_ALL().ToJsonString;
   except
     Result:= conexao.ResultadoErrado;
   end;

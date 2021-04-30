@@ -120,6 +120,9 @@
         <DCCReference Include="Controller\CProdutoClimba.pas"/>
         <DCCReference Include="Model\MUtils.pas"/>
         <DCCReference Include="Controller\CInterfaceClimba.pas"/>
+        <DCCReference Include="Model\stubs\MPagamentoClimba.pas"/>
+        <DCCReference Include="Model\stubs\MClienteClimba.pas"/>
+        <DCCReference Include="Model\stubs\MListaResposta.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

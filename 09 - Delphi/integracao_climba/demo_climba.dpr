@@ -30,7 +30,10 @@ uses
   MConexaoProdutoClimba in 'Model\internet\MConexaoProdutoClimba.pas',
   CProdutoClimba in 'Controller\CProdutoClimba.pas',
   MUtils in 'Model\MUtils.pas',
-  CInterfaceClimba in 'Controller\CInterfaceClimba.pas';
+  CInterfaceClimba in 'Controller\CInterfaceClimba.pas',
+  MPagamentoClimba in 'Model\stubs\MPagamentoClimba.pas',
+  MClienteClimba in 'Model\stubs\MClienteClimba.pas',
+  MListaResposta in 'Model\stubs\MListaResposta.pas';
 
 {$R *.res}
 
@@ -41,6 +44,8 @@ begin
   Application.Run;
 
 end.
+
+
 
 
 

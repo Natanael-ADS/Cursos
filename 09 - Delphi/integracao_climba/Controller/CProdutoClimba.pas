@@ -40,7 +40,7 @@ begin
     Produto.Status      := parametros.Items['status'];
     Produto.ProductVariants.Add(PropriedadesDoProduto(parametros));
 
-    result := TUtils.ToJsonString(Conexao.PUT(Produto));
+    result := Conexao.PUT(Produto).ToJsonString;
   except
     Result := Conexao.ResultadoErrado;
     raise;
@@ -58,7 +58,7 @@ begin
     Produto.Status      := parametros.Items['status'];
     Produto.ProductVariants.Add(PropriedadesDoProduto(parametros));
 
-    result := TUtils.ToJsonString(Conexao.POST(Produto));
+    result := Conexao.POST(Produto).ToJsonString;
   except
     Result := Conexao.ResultadoErrado;
     raise;
@@ -68,7 +68,7 @@ end;
 function TCProdutoClimba.Consultar(const id: string): string;
 begin
   try
-    Result := TUtils.ToJsonString(Conexao.GET(id));
+    Result := Conexao.GET(id).ToJsonString;
   except
     Result := Conexao.ResultadoErrado;
   end;
@@ -77,7 +77,7 @@ end;
 function TCProdutoClimba.ConsultarTodos: string;
 begin
   try
-    Result := TUtils.ToJsonString(Conexao.GET_ALL());
+   // Result := Conexao.GET_ALL().lista.ToString;
   except
     Result := Conexao.ResultadoErrado;
   end;

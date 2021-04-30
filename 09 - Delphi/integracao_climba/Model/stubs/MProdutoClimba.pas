@@ -17,14 +17,10 @@ type
     FLength: Integer;
     FManufacturerCode: string;
     FNetWeight: Integer;
-    [JSONName('prices')]
-    FPricesArray: TArray<TPrecoClimba>;
-    [GenericListReflect]
     FPrices: TObjectList<TPrecoClimba>;
     FQuantity: Integer;
     FSku: string;
     FWidth: Integer;
-    function GetPrices: TObjectList<TPrecoClimba>;
   published
     property BarCode: string read FBarCode write FBarCode;
     property Description: string read FDescription write FDescription;
@@ -33,7 +29,7 @@ type
     property Length: Integer read FLength write FLength;
     property ManufacturerCode: string read FManufacturerCode write FManufacturerCode;
     property NetWeight: Integer read FNetWeight write FNetWeight;
-    property Prices: TObjectList<TPrecoClimba> read GetPrices;
+    property Prices: TObjectList<TPrecoClimba> read FPrices;
     property Quantity: Integer read FQuantity write FQuantity;
     property Sku: string read FSku write FSku;
     property Width: Integer read FWidth write FWidth;
@@ -47,28 +43,25 @@ type
     FDescription: string;
     FId: string;
     FName: string;
-    [JSONName('productVariants')]
-    FProductVariantsArray: TArray<TProductVariants>;
-    [GenericListReflect]
     FProductVariants: TObjectList<TProductVariants>;
     FStatus: string;
-    function GetProductVariants: TObjectList<TProductVariants>;
   published
     property BrandId: string read FBrandId write FBrandId;
     property Categories: TArray<string> read FCategories write FCategories;
     property Description: string read FDescription write FDescription;
     property Id: string read FId write FId;
     property Name: string read FName write FName;
-    property ProductVariants: TObjectList<TProductVariants> read GetProductVariants;
+    property ProductVariants: TObjectList<TProductVariants> read FProductVariants;
     property Status: string read FStatus write FStatus;
+    class function JsonStringParaObjeto(AjsonString: string): TProdutoClimba;
+    function ToJsonString(): string;
     destructor Destroy; override;
   end;
   TListaProdutoClimba = class
     private
     Flista: TObjectList<TProdutoClimba>;
-    procedure Setlista(const Value: TObjectList<TProdutoClimba>);
     public
-      property lista : TObjectList<TProdutoClimba> read Flista write Setlista;
+      property lista : TObjectList<TProdutoClimba> read Flista ;
       constructor Create();
       destructor Destroy();
   end;
@@ -82,37 +75,29 @@ uses
 { TProductVariants }
 destructor TProductVariants.Destroy;
 begin
-  GetPrices.Free;
+  FPrices.Free;
   inherited;
 end;
-
-function TProductVariants.GetPrices: TObjectList<TPrecoClimba>;
-begin
-  if not Assigned(FPrices) then
-  begin
-    FPrices := TObjectList<TPrecoClimba>.Create;
-    FPrices.AddRange(FPricesArray);
-  end;
-  Result := FPrices;
-end;
-
 
 { TProdutoClimba }
 
 destructor TProdutoClimba.Destroy;
 begin
-  GetProductVariants.Free;
+  FProductVariants.Free;
   inherited;
 end;
 
-function TProdutoClimba.GetProductVariants: TObjectList<TProductVariants>;
+function TProdutoClimba.ToJsonString(): string;
 begin
-  if not Assigned(FProductVariants) then
-  begin
-    FProductVariants := TObjectList<TProductVariants>.Create;
-    FProductVariants.AddRange(FProductVariantsArray);
-  end;
-  Result := FProductVariants;
+   result := TJson.ObjectToJsonString(Self);
+end;
+
+class function TProdutoClimba.JsonStringParaObjeto(AjsonString: string): TProdutoClimba;
+var
+  JSonValue : TJSonValue;
+begin
+  JsonValue := TJSonObject.ParseJSONValue(AjsonString);
+  Result := TJson.JsonToObject<TProdutoClimba>(AjsonString);
 end;
 
 { TListaProdutoClimba }
@@ -127,10 +112,6 @@ begin
   Flista.Free();
 end;
 
-procedure TListaProdutoClimba.Setlista(
-  const Value: TObjectList<TProdutoClimba>);
-begin
-  Flista := Value;
-end;
+
 
 end.

@@ -24,8 +24,8 @@ uses
 function TConexaoPrecoClimba.GET_ALL: TPrecoClimbaLista;
 begin
   try
-    jsonStringRetornado := TConexaoClimba.RequisicaoClimba('GET',EmptyStr,'priceLists');
-    Result := TUtils.JsonStringParaObjeto(jsonStringRetornado) as TPrecoClimbaLista;
+    jsonStringRetornado := TConexaoClimba.RequisicaoClimba('GET',EmptyStr,'/priceLists');
+    Result := TPrecoClimbaLista.JsonStringParaObjeto(jsonStringRetornado);
   except
     ResultadoErrado := jsonStringRetornado;
   end;
@@ -34,18 +34,20 @@ end;
 function TConexaoPrecoClimba.POST(const preco: TPrecoClimba):TPrecoClimba;
 begin
   try
-    jsonStringRetornado := TConexaoClimba.RequisicaoClimba('POST',TUtils.ToJsonString(preco),'/priceLists/');
-    result := TUtils.JsonStringParaObjeto(jsonStringRetornado) as TPrecoClimba;
+    jsonStringRetornado := TConexaoClimba.RequisicaoClimba('POST',preco.ToJsonString,'/priceLists/');
+    result := TPrecoClimba.JsonStringParaObjeto(jsonStringRetornado);
   except
     ResultadoErrado := jsonStringRetornado;
   end;
 end;
 
 function TConexaoPrecoClimba.GET(const idpreco: string): TPrecoClimba;
+var
+  obj: TObject;
 begin
   try
-    jsonStringRetornado := TConexaoClimba.RequisicaoClimba('POST',EmptyStr,'/priceLists/'+idpreco);
-    result := TUtils.JsonStringParaObjeto(jsonStringRetornado) as TPrecoClimba;
+    jsonStringRetornado := TConexaoClimba.RequisicaoClimba('GET',EmptyStr,'/priceLists/'+idpreco);
+    Result := TPrecoClimba.JsonStringParaObjeto(jsonStringRetornado);
   except
     ResultadoErrado := jsonStringRetornado;
   end;
@@ -54,8 +56,8 @@ end;
 function TConexaoPrecoClimba.PUT(const preco: TPrecoClimba):TPrecoClimba;
 begin
   try
-    jsonStringRetornado := TConexaoClimba.RequisicaoClimba('PUT',TUtils.ToJsonString(preco),'/priceLists/'+preco.id);
-    result := TUtils.JsonStringParaObjeto(jsonStringRetornado) as TPrecoClimba;
+    jsonStringRetornado := TConexaoClimba.RequisicaoClimba('PUT',preco.ToJsonString,'/priceLists/'+preco.id);
+    result := TPrecoClimba.JsonStringParaObjeto(jsonStringRetornado);
   except
     ResultadoErrado := jsonStringRetornado;
   end;

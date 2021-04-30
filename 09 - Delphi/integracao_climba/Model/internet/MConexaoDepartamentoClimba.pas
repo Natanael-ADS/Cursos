@@ -29,11 +29,11 @@ var
 begin
   try
     jsonStringRetornado := TConexaoClimba.RequisicaoClimba('GET',EmptyStr,'/categories/');
-    listaObj := TUtils.JsonStringParaObjetoList(jsonStringRetornado);
-    listaDep := TObjectList<TDepartamentoClimba>.Create;
-    for obj in listaObj do
-      listaDep.Add(obj as TDepartamentoClimba);
-    result:= listaDep;
+//    listaObj := TUtils.JsonStringParaObjetoList(jsonStringRetornado);
+//    listaDep := TObjectList<TDepartamentoClimba>.Create;
+//    for obj in listaObj do
+//      listaDep.Add(obj as TDepartamentoClimba);
+//    result:= listaDep;
   except
     ResultadoErrado := jsonStringRetornado;
   end;
@@ -42,8 +42,8 @@ end;
 function TConexaoDepartamentoClimba.POST(const departamento: TDepartamentoClimba):TDepartamentoClimba;
 begin
   try
-    jsonStringRetornado := TConexaoClimba.RequisicaoClimba('POST',TUtils.ToJsonString(departamento),'/categories/');
-    result := TUtils.JsonStringParaObjeto(jsonStringRetornado) as TDepartamentoClimba;
+    jsonStringRetornado := TConexaoClimba.RequisicaoClimba('POST',departamento.ToJsonString(),'/categories/');
+    result := TDepartamentoClimba.JsonStringParaObjeto(jsonStringRetornado);
   except
     ResultadoErrado := jsonStringRetornado;
   end;
@@ -52,8 +52,8 @@ end;
 function TConexaoDepartamentoClimba.PUT(const departamento: TDepartamentoClimba): TDepartamentoClimba;
 begin
   try
-    jsonStringRetornado := TConexaoClimba.RequisicaoClimba('PUT',TUtils.ToJsonString(departamento),'/categories/'+departamento.id);
-    result := TUtils.JsonStringParaObjeto(jsonStringRetornado) as TDepartamentoClimba;
+    jsonStringRetornado := TConexaoClimba.RequisicaoClimba('PUT',departamento.ToJsonString(),'/categories/'+departamento.id);
+    result := TDepartamentoClimba.JsonStringParaObjeto(jsonStringRetornado);
   except
     ResultadoErrado := jsonStringRetornado;
   end;
@@ -63,7 +63,7 @@ function TConexaoDepartamentoClimba.GET(const id: string): TDepartamentoClimba;
 begin
   try
     jsonStringRetornado := TConexaoClimba.RequisicaoClimba('GET',EmptyStr,'/categories/'+id);
-    result := TUtils.JsonStringParaObjeto(jsonStringRetornado) as TDepartamentoClimba;
+    result := TDepartamentoClimba.JsonStringParaObjeto(jsonStringRetornado);
   except
     ResultadoErrado := jsonStringRetornado;
   end;

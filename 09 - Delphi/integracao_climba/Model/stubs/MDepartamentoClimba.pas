@@ -10,21 +10,16 @@ type
     FbreadCrumb: string;
     Forder: string;
     FparentId: string;
-    procedure Setdescription(const Value: string);
-    procedure Setid(const Value: string);
-    procedure Setname(const Value: string);
-    procedure SetbreadCrumb(const Value: string);
-    procedure Setorder(const Value: string);
-    procedure SetparentId(const Value: string);
   public
-    property id : string read Fid write Setid;
-    property parentId: string read FparentId write SetparentId;
-    property name: string read Fname write Setname;
-    property description: string read Fdescription write Setdescription;
-    property order: string read Forder write Setorder;
-    property breadCrumb: string read FbreadCrumb write SetbreadCrumb;
-    constructor Create();
-    destructor Detroy();
+    property id : string read Fid write Fid;
+    property parentId: string read FparentId write FparentId;
+    property name: string read Fname write Fname;
+    property description: string read Fdescription write Fdescription;
+    property order: string read Forder write Forder;
+    property breadCrumb: string read FbreadCrumb write FbreadCrumb;
+
+    class function JsonStringParaObjeto(AjsonString: string): TDepartamentoClimba;
+    function ToJsonString(): string;
   end;
 implementation
 
@@ -32,44 +27,18 @@ implementation
 uses
   REST.JSON, System.JSON;
 
-constructor TDepartamentoClimba.Create;
+function TDepartamentoClimba.ToJsonString(): string;
 begin
-
+   result := TJson.ObjectToJsonString(Self);
 end;
 
-destructor TDepartamentoClimba.Detroy;
+class function TDepartamentoClimba.JsonStringParaObjeto(AjsonString: string): TDepartamentoClimba;
+var
+  JSonValue : TJSonValue;
 begin
-
+  JsonValue := TJSonObject.ParseJSONValue(AjsonString);
+  Result := TJson.JsonToObject<TDepartamentoClimba>(AjsonString);
 end;
 
-procedure TDepartamentoClimba.SetbreadCrumb(const Value: string);
-begin
-  FbreadCrumb := Value;
-end;
-
-procedure TDepartamentoClimba.Setdescription(const Value: string);
-begin
-  Fdescription := Value;
-end;
-
-procedure TDepartamentoClimba.Setid(const Value: string);
-begin
-  Fid := Value;
-end;
-
-procedure TDepartamentoClimba.Setname(const Value: string);
-begin
-  Fname := Value;
-end;
-
-procedure TDepartamentoClimba.Setorder(const Value: string);
-begin
-  Forder := Value;
-end;
-
-procedure TDepartamentoClimba.SetparentId(const Value: string);
-begin
-  FparentId := Value;
-end;
 
 end.
