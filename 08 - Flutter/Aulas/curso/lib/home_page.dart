@@ -1,3 +1,4 @@
+import 'package:curso/app_controller.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,18 +17,11 @@ class HomePageState extends State<HomePage> {
         title: Center(child: Text('Home Page')),
       ),
       body: Center(
-        child: Container(
-          child: GestureDetector(
-            child: Text(
-              'Contador : $counter',
-              style: TextStyle(fontSize: 50.0),
-            ),
-            onTap: () {
-              setState(() {
-                counter++;
-              });
-            },
-          ),
+        child: Switch(
+          onChanged: (bool value) {
+            AppController.instance.changeTheme();
+          },
+          value: AppController.instance.isDarkTheme,
         ),
       ),
       floatingActionButton: FloatingActionButton(
