@@ -15,15 +15,9 @@ class HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Text('Home Page')),
+        actions: [CustomSwitch()],
       ),
-      body: Center(
-        child: Switch(
-          onChanged: (bool value) {
-            AppController.instance.changeTheme();
-          },
-          value: AppController.instance.isDarkTheme,
-        ),
-      ),
+      body: Center(child: CustomSwitch()),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
@@ -32,6 +26,18 @@ class HomePageState extends State<HomePage> {
           });
         },
       ),
+    );
+  }
+}
+
+class CustomSwitch extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Switch(
+      onChanged: (bool value) {
+        AppController.instance.changeTheme();
+      },
+      value: AppController.instance.isDarkTheme,
     );
   }
 }
