@@ -17,7 +17,13 @@ class HomePageState extends State<HomePage> {
         title: Center(child: Text('Home Page')),
         actions: [CustomSwitch()],
       ),
-      body: Center(child: CustomSwitch()),
+      body: Container(
+          height: double.infinity,
+          width: double.infinity,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [Text("Contador: $counter"), CustomSwitch()],
+          )),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
