@@ -18,12 +18,28 @@ class HomePageState extends State<HomePage> {
         actions: [CustomSwitch()],
       ),
       body: Container(
-          height: double.infinity,
-          width: double.infinity,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [Text("Contador: $counter"), CustomSwitch()],
-          )),
+        height: double.infinity,
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Contador: $counter"),
+            CustomSwitch(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [Text('Line 1'), Text('Line 2')],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                containerTeste(),
+                containerTeste(),
+                containerTeste(),
+              ],
+            ),
+          ],
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
@@ -32,6 +48,14 @@ class HomePageState extends State<HomePage> {
           });
         },
       ),
+    );
+  }
+
+  containerTeste() {
+    return Container(
+      height: 50,
+      width: 50,
+      color: Colors.orange,
     );
   }
 }
