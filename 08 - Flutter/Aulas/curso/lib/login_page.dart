@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'home_page.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -26,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
                   fEspaco(10),
                   fpassword(),
                   fEspaco(25),
-                  fEntrar()
+                  fEntrar(context)
                 ],
               ),
             )),
@@ -59,11 +60,11 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  fEntrar() {
+  fEntrar(BuildContext context) {
     return RaisedButton(
       onPressed: () {
         if ((email == cEmail) && (password == cPassword)) {
-          print('Correto');
+          fAbrirTela(context);
         } else {
           print('Senha ou email inválido!');
           print(password);
@@ -71,6 +72,12 @@ class _LoginPageState extends State<LoginPage> {
         }
       },
       child: Text('Entrar'),
+    );
+  }
+
+  fAbrirTela(BuildContext context) {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => HomePage()),
     );
   }
 }
