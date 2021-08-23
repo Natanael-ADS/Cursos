@@ -76,8 +76,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   fAbrirTela(BuildContext context) {
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => HomePage()),
-    );
+    Navigator.of(context).pushNamed('/HomePage');
   }
 }
