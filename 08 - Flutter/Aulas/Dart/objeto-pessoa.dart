@@ -1,8 +1,18 @@
 class Pessoa {
-  String _nome = '';
+  /*---------------------------------ATRIBUTOS--------------------------------*/
+  String _nome = "";
   int _idade = 0;
   bool _casado = false;
 
+  /*--------------------------------CONSTRUTORES------------------------------*/
+  Pessoa();
+  Pessoa.criar(this._nome, this._idade, this._casado);
+  Pessoa.casado(this._nome, this._idade) {
+    this._casado = true;
+    print("Pessoa Casada");
+  }
+
+  /*-------------------------------GETTERS/SETTERS----------------------------*/
   String get nome => _nome;
   int get idade => _idade;
   bool get casado => _casado;
@@ -11,6 +21,7 @@ class Pessoa {
   set idade(int value) => _idade = value;
   set casado(bool value) => _casado = value;
 
+  /*-----------------------------------FUNÇÕES--------------------------------*/
   String GetNome() => _nome;
   int GetIdade() => _idade;
   bool GetCasado() => _casado;
@@ -41,6 +52,13 @@ void main() {
 
   print(pessoa.toString());
 
-  var msg = pessoa.SetNome("Thais").SetIdade(22).SetCasado(true).toString();
-  print(msg);
+  var pessoaMsg =
+      pessoa.SetNome("Thais").SetIdade(22).SetCasado(true).toString();
+  print(pessoaMsg);
+
+  Pessoa pessoa2 = Pessoa.criar("Thiago", 22, false);
+  print(pessoa2.toString());
+
+  Pessoa pessoa3 = Pessoa.casado("Matheus", 25);
+  print(pessoa3.toString());
 }
