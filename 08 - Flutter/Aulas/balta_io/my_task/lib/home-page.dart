@@ -24,6 +24,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  buttonRemove(int index) => setState(() => widget.items.removeAt(index));
+
   buttonFloating() {
     btn() {
       final con = widget.controller;
@@ -68,14 +70,40 @@ class _HomePageState extends State<HomePage> {
     return ListView.builder(
       itemBuilder: (context, index) {
         final item = widget.items[index];
-        return CheckboxListTile(
-          title: Text(item.title),
-          value: item.done,
-          onChanged: (value) {
-            setState(() {
-              item.done = value ?? false;
-            });
+        return Dismissible(
+          key: Key(item.title),
+          onDismissed: (diretion) {
+            buttonRemove(index);
           },
+          background: Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    "Excluir",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            color: Colors.red,
+          ),
+          child: CheckboxListTile(
+            title: Text(item.title),
+            value: item.done,
+            onChanged: (value) {
+              setState(() {
+                item.done = value ?? false;
+              });
+            },
+          ),
         );
       },
       itemCount: widget.items.length,
