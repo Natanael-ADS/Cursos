@@ -1,13 +1,29 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:my_task/modules/item.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   var items = <Item>[];
   TextEditingController controller = TextEditingController();
   HomePage() {
-    items.add(Item(title: "Task 01", done: false));
-    items.add(Item(title: "Task 02", done: false));
-    items.add(Item(title: "Task 03", done: false));
+    _load();
+  }
+
+  _save() async {
+    var pref = await SharedPreferences.getInstance();
+    pref.setString("data", jsonEncode(items));
+  }
+
+  Future _load() async {
+    var pref = await SharedPreferences.getInstance();
+    var data = pref.getString("data") ?? "";
+
+    if (data == null) {
+      Iterable decoded = jsonDecode(data);
+      items = decoded.map((x) => Item.FromJson(x)).toList();
+    }
   }
 
   @override
@@ -24,7 +40,10 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  buttonRemove(int index) => setState(() => widget.items.removeAt(index));
+  buttonRemove(int index) => setState(() {
+        widget.items.removeAt(index);
+        widget._save();
+      });
 
   buttonFloating() {
     btn() {
@@ -39,6 +58,7 @@ class _HomePageState extends State<HomePage> {
 
         lista.add(item);
         con.clear();
+        widget._save();
       });
     }
 
@@ -101,6 +121,7 @@ class _HomePageState extends State<HomePage> {
             onChanged: (value) {
               setState(() {
                 item.done = value ?? false;
+                widget._save();
               });
             },
           ),
