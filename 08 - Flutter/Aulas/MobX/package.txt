@@ -1,0 +1,8 @@
+link = https://pub.dev/
+1- flutter_mobx
+2- mobx
+3- build_runner
+4- mobx_codegen
+
+
+flutter packages pub run builde_runner build/watch
